@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jokerboozp.github.io/images/bitbug_favicon32.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jokerboozp.github.io/images/bitbug_favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jokerboozp.github.io/images/bitbug_favicon16.ico">
+  <link rel="mask-icon" href="/jokerboozp.github.io/images/bitbug_favicon32.ico" color="#222">
+
+<link rel="stylesheet" href="/jokerboozp.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jokerboozp.github.io/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jokerboozp.top","root":"/jokerboozp.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="一个想要成为全栈工程师的运维开发毕业生">
+<meta property="og:type" content="website">
+<meta property="og:title" content="慢慢变好的程序张">
+<meta property="og:url" content="http://jokerboozp.top/page/3/index.html">
+<meta property="og:site_name" content="慢慢变好的程序张">
+<meta property="og:description" content="一个想要成为全栈工程师的运维开发毕业生">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="慢慢变好的程序张">
+<meta property="article:tag" content="Java;Spring;SpringCloud;区块链;Dubbo;Vue;算法;Gradle;Shiro;Mysql;Oracle;SpringBoot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://jokerboozp.top/page/3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>慢慢变好的程序张</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?54437ed9f92906a9d0370f8085d314b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/jokerboozp.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">慢慢变好的程序张</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry.Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jokerboozp.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jokerboozp.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/jokerboozp.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/12/16/2019-12-16-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%B4%A6%E6%88%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/12/16/2019-12-16-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%B4%A6%E6%88%B7/" class="post-title-link" itemprop="url">以太坊-以太坊账户</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-16T00:00:00+08:00">2019-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 15:33:23" itemprop="dateModified" datetime="2020-06-17T15:33:23+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="以太坊账户"><a href="#以太坊账户" class="headerlink" title="以太坊账户"></a>以太坊账户</h4><ul>
+<li>比特币中用的是基于交易的账本，这种情况下系统中并没有显式的记录每个账户上有多少钱（需要计算UTXO中的值才能知道某个账户有多少比特币）。这种模式的好处是隐私保护特别好，你有多少钱，可能自己都不清楚。但是这样带来一个问题：它使用上是比较别扭的，像用户在花费比特币的时候，需要把现在账户内的余额全部花出去，否则剩余的比特币就会作为交易费转发给矿工。这样的原因是比特币系统中没有显式的维护这种基于账户的交易的概念，他是每个交易单独进行处理的。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/12/16/2019-12-16-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%B4%A6%E6%88%B7/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/12/12/2019-12-12-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%A6%82%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/12/12/2019-12-12-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%A6%82%E8%BF%B0/" class="post-title-link" itemprop="url">以太坊-以太坊概述</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-12 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-12T00:00:00+08:00">2019-12-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 15:33:16" itemprop="dateModified" datetime="2020-06-17T15:33:16+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>282</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="以太坊简介"><a href="#以太坊简介" class="headerlink" title="以太坊简介"></a>以太坊简介</h4><ul>
+<li>比特币和以太坊是两种最主要的加密货币。比特币被称为区块链1.0，以太坊被称为区块链2.0.</li>
+<li>以太坊在系统设计上针对比特币的运行过程中出现的问题进行了改进，例如出块时间降低到了十几秒，一套基于Ghost协议的共识机制、挖矿时使用的mining puzzle，用权益证明替代工作量证明以及智能合约的支持。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/12/12/2019-12-12-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%A6%82%E8%BF%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/12/12/2019-12-12-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E5%8C%BF%E5%90%8D%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/12/12/2019-12-12-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E5%8C%BF%E5%90%8D%E6%80%A7/" class="post-title-link" itemprop="url">区块链-比特币的匿名性</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-12 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-12T00:00:00+08:00">2019-12-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 15:33:09" itemprop="dateModified" datetime="2020-06-17T15:33:09+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>452</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="零知识证明（Zero-Knowledge-Proof）"><a href="#零知识证明（Zero-Knowledge-Proof）" class="headerlink" title="零知识证明（Zero Knowledge Proof）"></a>零知识证明（Zero Knowledge Proof）</h4><ul>
+<li>零知识证明是指一方（证明者）向另一方（验证者）证明一个陈述是正确的，而无需透露除该陈述是正确的外的任何信息。</li>
+</ul>
+<h4 id="同态隐藏（零知识证明的数学基础）"><a href="#同态隐藏（零知识证明的数学基础）" class="headerlink" title="同态隐藏（零知识证明的数学基础）"></a>同态隐藏（零知识证明的数学基础）</h4><ul>
+<li>同态隐藏的三个性质：</li>
+</ul>
+<p><img data-src="https://vi1.xiu123.cn/live/2019/12/12/10/1003v1576118871552261404.jpg" alt=""></p>
+<ul>
+<li>例：Alice想要向Bob证明他知道一组数x和y使得x+y=7，同时不让Bob知道x和y的具体数值。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/12/12/2019-12-12-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E5%8C%BF%E5%90%8D%E6%80%A7/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/12/09/2019-12-09-%E6%AF%94%E7%89%B9%E5%B8%81%E5%88%86%E5%8F%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/12/09/2019-12-09-%E6%AF%94%E7%89%B9%E5%B8%81%E5%88%86%E5%8F%89/" class="post-title-link" itemprop="url">区块链-比特币分叉</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-09 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-09T00:00:00+08:00">2019-12-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 15:33:00" itemprop="dateModified" datetime="2020-06-17T15:33:00+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="比特币系统中的分叉"><a href="#比特币系统中的分叉" class="headerlink" title="比特币系统中的分叉"></a>比特币系统中的分叉</h4><ul>
+<li>原来是一条链，现在分成了两条链，这就叫做分叉（fork）<ul>
+<li>分叉可能是多种原因造成的。比如之前写到的：挖矿的时候，如果有两个节点差不多同一时候挖到了矿，那么这时候两个节点都可以发布区块，这时候就会出现临时性的分叉。我们把这样的分叉叫做state fork<ul>
+<li>state fork：由于对比特币这个区块链当前的状态有分歧而造成的分叉
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/12/09/2019-12-09-%E6%AF%94%E7%89%B9%E5%B8%81%E5%88%86%E5%8F%89/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/12/08/2019-12-08-%E6%AF%94%E7%89%B9%E5%B8%81%E6%8C%96%E7%9F%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/12/08/2019-12-08-%E6%AF%94%E7%89%B9%E5%B8%81%E6%8C%96%E7%9F%BF/" class="post-title-link" itemprop="url">区块链-比特币挖矿</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-08 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-08T00:00:00+08:00">2019-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-03 15:15:22" itemprop="dateModified" datetime="2020-06-03T15:15:22+08:00">2020-06-03</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="知识总结"><a href="#知识总结" class="headerlink" title="知识总结"></a>知识总结</h4><ul>
+<li>1.比特币中存在两种节点：全节点、轻节点<ul>
+<li><strong>全节点</strong>：<ul>
+<li>1.一直在线</li>
+<li>2.在本地硬盘上维护完整的区块链信息</li>
+<li>3.在内存里维护UTXO集合，以便快速检验交易的正确性</li>
+<li>4.监听比特币网络上的交易信息，验证每个交易的合法性
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/12/08/2019-12-08-%E6%AF%94%E7%89%B9%E5%B8%81%E6%8C%96%E7%9F%BF/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/12/07/2019-12-07-%E6%AF%94%E7%89%B9%E5%B8%81%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/12/07/2019-12-07-%E6%AF%94%E7%89%B9%E5%B8%81%E7%BD%91%E7%BB%9C/" class="post-title-link" itemprop="url">区块链-比特币网络</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-07T00:00:00+08:00">2019-12-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 14:38:25" itemprop="dateModified" datetime="2020-06-17T14:38:25+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="比特币网络的工作原理"><a href="#比特币网络的工作原理" class="headerlink" title="比特币网络的工作原理"></a>比特币网络的工作原理</h4><ul>
+<li>比特币网络的底层是P2P网络</li>
+<li>比特币网络中的所有结点都是平等的，如果你想加入这个网络，那么你就需要知道至少一个种子结点（seed node），种子结点会告诉你他所知道的这个网络中的其他结点。</li>
+<li>结点之间是通过TCP来通讯的，这样有利于穿透防火墙。离开的时候不需要通知其他结点，只需要退出你的应用程序即可，别的节点没有收到你的消息，过了一段时间之后就会把你给删掉
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/12/07/2019-12-07-%E6%AF%94%E7%89%B9%E5%B8%81%E7%BD%91%E7%BB%9C/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/12/07/2019-12-07-%E6%AF%94%E7%89%B9%E5%B8%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/12/07/2019-12-07-%E6%AF%94%E7%89%B9%E5%B8%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">区块链-比特币系统的具体实现</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-07T00:00:00+08:00">2019-12-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 15:32:45" itemprop="dateModified" datetime="2020-06-17T15:32:45+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="UTXO"><a href="#UTXO" class="headerlink" title="UTXO"></a>UTXO</h4><ul>
+<li>区块链是一个去中心化的账本，而比特币采用的是一种基于交易的账本模式（transaction-based ledger），还有一种是基于账户的账本模式（account-based ledger）。每个区块中记录的是交易信息，但是系统当中并没有哪一个地方显式的记录每一个账户中有多少钱，这个需要用交易记录来推算</li>
+<li><strong>比特币中的全结点要维护一个叫做UTXO的数据结构（Unspent Transaction Output）</strong>：区块链上有很多交易，有些交易的输出可能已经被花掉了，有些还没有被花掉，所有那些还没有被花掉的输出的集合就叫做UTXO。一个交易可能有多个输出
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/12/07/2019-12-07-%E6%AF%94%E7%89%B9%E5%B8%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/12/06/2019-12-06-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/12/06/2019-12-06-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE/" class="post-title-link" itemprop="url">区块链-比特币的共识协议</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-06T00:00:00+08:00">2019-12-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 13:48:15" itemprop="dateModified" datetime="2020-06-17T13:48:15+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="数字货币与纸质货币的区别"><a href="#数字货币与纸质货币的区别" class="headerlink" title="数字货币与纸质货币的区别"></a>数字货币与纸质货币的区别</h4><ul>
+<li>纸质货币是中心化的记账系统，而数字货币是去中心化的记账系统。</li>
+<li>数字货币的主要挑战就是怎样避免double spending attack<ul>
+<li>double spending attack是指：纸质货币是由央行管控的，所以可以避免造假，但是数字货币直接复制一份就可以花出去，这就是double spending attack</li>
+</ul>
+</li>
+</ul>
+<p><img data-src="https://s2.ax1x.com/2019/12/19/Qqah60.png" alt="Qqah60.png"></p>
+<ul>
+<li>上图是一个简单的区块链交易
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/12/06/2019-12-06-%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/12/05/2019-12-05-%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/12/05/2019-12-05-%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">区块链</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-05 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-05T00:00:00+08:00">2019-12-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 13:48:06" itemprop="dateModified" datetime="2020-06-17T13:48:06+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="密码学原理"><a href="#密码学原理" class="headerlink" title="密码学原理"></a>密码学原理</h4><ul>
+<li><strong>讲解先前以比特币为主</strong></li>
+<li>比特币又叫做加密货币（crypto-currency），然而他并不是加密的，区块链上所有的交易内容都是公开的，交易的IP地址，转账的金额都是公开的。</li>
+<li><strong>比特币中主要用到了密码学中的两个功能，一个是哈希，另外一个是签名</strong>。</li>
+<li><strong>密码学中用到的哈希函数叫做Crypto Hash Function</strong>，他有两个重要的性质：</li>
+<li>一个叫做collision resistance（抗哈希碰撞）。至于哈希碰撞是什么，请查看以前的文
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/12/05/2019-12-05-%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/11/26/2019-11-26-Thymeleaf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/11/26/2019-11-26-Thymeleaf/" class="post-title-link" itemprop="url">Springboot-thymeleaf</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-26 00:00:00" itemprop="dateCreated datePublished" datetime="2019-11-26T00:00:00+08:00">2019-11-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 13:47:57" itemprop="dateModified" datetime="2020-06-17T13:47:57+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/Springboot/" itemprop="url" rel="index"><span itemprop="name">Springboot</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="在一个Html页面中引入另一个Html页面，通常来说会利用iFrame框架来进行构建，但是iFrame框架不够灵活而且样式很老旧，而且Thymeleaf对iFrame的支持程度也不高，所以来使用Thymeleaf自带的include方式来引入页面"><a href="#在一个Html页面中引入另一个Html页面，通常来说会利用iFrame框架来进行构建，但是iFrame框架不够灵活而且样式很老旧，而且Thymeleaf对iFrame的支持程度也不高，所以来使用Thymeleaf自带的include方式来引入页面" class="headerlink" title="在一个Html页面中引入另一个Html页面，通常来说会利用iFrame框架来进行构建，但是iFrame框架不够灵活而且样式很老旧，而且Thymeleaf对iFrame的支持程度也不高，所以来使用Thymeleaf自带的include方式来引入页面"></a>在一个Html页面中引入另一个Html页面，通常来说会利用iFrame框架来进行构建，但是iFrame框架不够灵活而且样式很老旧，而且Thymeleaf对iFrame的支持程度也不高，所以来使用Thymeleaf自带的include方式来引入页面</h4><hr>
+<h4 id="先说一下这样做的原因，在构建上一个项目的时候，在每次更改导航栏或者侧边栏的时候，都要同步更改剩余20多个html页面的导航栏或者侧边栏，相当令人头疼。而且在不小心改错的时候，一个一个找也非常令人头疼。所以就需要创建一个header-html，在其他页面直接引入，需要更改的时候直接更改header-html即可。"><a href="#先说一下这样做的原因，在构建上一个项目的时候，在每次更改导航栏或者侧边栏的时候，都要同步更改剩余20多个html页面的导航栏或者侧边栏，相当令人头疼。而且在不小心改错的时候，一个一个找也非常令人头疼。所以就需要创建一个header-html，在其他页面直接引入，需要更改的时候直接更改header-html即可。" class="headerlink" title="先说一下这样做的原因，在构建上一个项目的时候，在每次更改导航栏或者侧边栏的时候，都要同步更改剩余20多个html页面的导航栏或者侧边栏，相当令人头疼。而且在不小心改错的时候，一个一个找也非常令人头疼。所以就需要创建一个header.html，在其他页面直接引入，需要更改的时候直接更改header.html即可。"></a>先说一下这样做的原因，在构建上一个项目的时候，在每次更改导航栏或者侧边栏的时候，都要同步更改剩余20多个html页面的导航栏或者侧边栏，相当令人头疼。而且在不小心改错的时候，一个一个找也非常令人头疼。所以就需要创建一个header.html，在其他页面直接引入，需要更改的时候直接更改header.html即可。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/11/26/2019-11-26-Thymeleaf/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/jokerboozp.github.io/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/jokerboozp.github.io/">1</a><a class="page-number" href="/jokerboozp.github.io/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/jokerboozp.github.io/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/jokerboozp.github.io/page/7/">7</a><a class="extend next" rel="next" href="/jokerboozp.github.io/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="慢慢变好的程序张"
+      src="/jokerboozp.github.io/images/1.jpg">
+  <p class="site-author-name" itemprop="name">慢慢变好的程序张</p>
+  <div class="site-description" itemprop="description">一个想要成为全栈工程师的运维开发毕业生</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jokerboozp.github.io/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jokerboozp.github.io/categories/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jokerboozp" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jokerboozp" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jokerboozp.github.io/15239593182@163.com" title="邮箱 → 15239593182@163.com"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/5316905070/profile?topnav=1&wvr=6&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;5316905070&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">慢慢变好的程序张</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">414k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:17</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/jokerboozp.github.io/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/jokerboozp.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/jokerboozp.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jokerboozp.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jokerboozp.github.io/js/utils.js"></script>
+
+<script src="/jokerboozp.github.io/js/motion.js"></script>
+
+
+<script src="/jokerboozp.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jokerboozp.github.io/js/next-boot.js"></script>
+
+<script src="/jokerboozp.github.io/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jokerboozp.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/g8wjrwp9mirlm2gaklcohrcf9lcuzbbd.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

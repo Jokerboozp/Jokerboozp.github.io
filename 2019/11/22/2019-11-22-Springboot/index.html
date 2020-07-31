@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jokerboozp.github.io/images/bitbug_favicon32.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jokerboozp.github.io/images/bitbug_favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jokerboozp.github.io/images/bitbug_favicon16.ico">
+  <link rel="mask-icon" href="/jokerboozp.github.io/images/bitbug_favicon32.ico" color="#222">
+
+<link rel="stylesheet" href="/jokerboozp.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jokerboozp.github.io/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jokerboozp.top","root":"/jokerboozp.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="因为已经利用SpringBoot构建了一个简单的网上商城项目，所以接下来就是完善相关细节，然后实现另一个项目的过程  这是一篇Springboot的中高级讲解博文，有些基础知识不再涉及，和SSM、Springboot、Shiro、Redis有关的基础知识不再举例和讲解。  网上的教程有许多，但是基本每一个都会出现这样那样的错误，所以这里做一个自己的步骤来供学习的人参考。  因为是在项目已经构建完">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Springboot1">
+<meta property="og:url" content="http://jokerboozp.top/2019/11/22/2019-11-22-Springboot/index.html">
+<meta property="og:site_name" content="慢慢变好的程序张">
+<meta property="og:description" content="因为已经利用SpringBoot构建了一个简单的网上商城项目，所以接下来就是完善相关细节，然后实现另一个项目的过程  这是一篇Springboot的中高级讲解博文，有些基础知识不再涉及，和SSM、Springboot、Shiro、Redis有关的基础知识不再举例和讲解。  网上的教程有许多，但是基本每一个都会出现这样那样的错误，所以这里做一个自己的步骤来供学习的人参考。  因为是在项目已经构建完">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.u1.huluxia.com/g3/M00/51/8B/wKgBOV3XcFuAG6RnAANng6slxmI869.png">
+<meta property="og:image" content="https://cdn.u1.huluxia.com/g3/M00/51/C2/wKgBOV3Xj6iAGsCIAAH8etVgxOc596.png">
+<meta property="og:image" content="https://cdn.u1.huluxia.com/g3/M03/51/BD/wKgBOV3XjHeAIGurAALQ5eKQs8g099.png">
+<meta property="og:image" content="https://cdn.u1.huluxia.com/g3/M00/51/C2/wKgBOV3Xj6iAGsCIAAH8etVgxOc596.png">
+<meta property="article:published_time" content="2019-11-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-17T05:47:45.029Z">
+<meta property="article:author" content="慢慢变好的程序张">
+<meta property="article:tag" content="Java;Spring;SpringCloud;区块链;Dubbo;Vue;算法;Gradle;Shiro;Mysql;Oracle;SpringBoot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.u1.huluxia.com/g3/M00/51/8B/wKgBOV3XcFuAG6RnAANng6slxmI869.png">
+
+<link rel="canonical" href="http://jokerboozp.top/2019/11/22/2019-11-22-Springboot/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Springboot1 | 慢慢变好的程序张</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?54437ed9f92906a9d0370f8085d314b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/jokerboozp.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">慢慢变好的程序张</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry.Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jokerboozp.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jokerboozp.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/jokerboozp.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/11/22/2019-11-22-Springboot/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Springboot1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-11-22T00:00:00+08:00">2019-11-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 13:47:45" itemprop="dateModified" datetime="2020-06-17T13:47:45+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/Springboot/" itemprop="url" rel="index"><span itemprop="name">Springboot</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>33k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>30 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li><p><strong><em>因为已经利用SpringBoot构建了一个简单的网上商城项目，所以接下来就是完善相关细节，然后实现另一个项目的过程</em></strong></p>
+</li>
+<li><p>这是一篇Springboot的中高级讲解博文，有些基础知识不再涉及，和SSM、Springboot、Shiro、Redis有关的基础知识不再举例和讲解。</p>
+</li>
+<li><p>网上的教程有许多，但是基本每一个都会出现这样那样的错误，所以这里做一个自己的步骤来供学习的人参考。</p>
+</li>
+<li><p>因为是在项目已经构建完毕之后才进行文档的编写，所以可能有些改动后会影响项目运行的地方会省去，当出现问题后可使用Bing或者Google进行搜索解决。<a id="more"></a></p>
+</li>
+<li><p>本文档不附带项目源码，紧跟步骤并自己上网查询相关问题是完全可以做出来的，所以不要再做伸手党了亲！</p>
+</li>
+</ul>
+<h4 id="本篇博客较长，所以在头部先声明一下会讲到的内容"><a href="#本篇博客较长，所以在头部先声明一下会讲到的内容" class="headerlink" title="本篇博客较长，所以在头部先声明一下会讲到的内容"></a>本篇博客较长，所以在头部先声明一下会讲到的内容</h4><ol>
+<li>Springboot项目中Shiro的详细的权限认证</li>
+<li>Springboot引入前端的shiro标签</li>
+<li>Springboot项目中Shiro基于yml来动态配置权限</li>
+<li>Springboot项目中使用shiro-redis缓存</li>
+<li>Springboot项目中使用Shiro实现RememberMe（记住我）功能</li>
+<li>Springboot项目中使用Shiro来集成Kaptcha验证码</li>
+<li>项目构建过程中遇到的错误</li>
+<li>总结</li>
+</ol>
+<h4 id="首先把使用的工具的版本信息列出"><a href="#首先把使用的工具的版本信息列出" class="headerlink" title="首先把使用的工具的版本信息列出"></a>首先把使用的工具的版本信息列出</h4><ul>
+<li>1.Idea 2018.3</li>
+<li>2.JDK 1.8</li>
+<li>3.Maven 3.6.0</li>
+<li>4.redis-64.3.0.503</li>
+<li>6.MySql 5.7</li>
+</ul>
+<h4 id="最终项目目录"><a href="#最终项目目录" class="headerlink" title="最终项目目录"></a>最终项目目录</h4><p><img data-src="https://cdn.u1.huluxia.com/g3/M00/51/8B/wKgBOV3XcFuAG6RnAANng6slxmI869.png" alt=""></p>
+<h4 id="最终结果展示"><a href="#最终结果展示" class="headerlink" title="最终结果展示"></a>最终结果展示</h4><p><img data-src="https://cdn.u1.huluxia.com/g3/M00/51/C2/wKgBOV3Xj6iAGsCIAAH8etVgxOc596.png" alt=""></p>
+<h4 id="1-Springboot项目中利用Shiro实现详细的权限认证"><a href="#1-Springboot项目中利用Shiro实现详细的权限认证" class="headerlink" title="1.Springboot项目中利用Shiro实现详细的权限认证"></a>1.Springboot项目中利用Shiro实现详细的权限认证</h4><ul>
+<li>实现这个功能的原因：在完成网上商城项目的时候，需要根据每个用户的权限不同来设计不同的后台界面，而且需要把每个用户的角色ID在每一层传一遍，相当的麻烦，又因为Thymeleaf的语法要求比较奇葩，直接导致每一个a标签的链接超乎想象的长。如下</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">"@&#123;/updateToastAsRead/&#123;roleid&#125;/&#123;userid&#125;/&#123;toastid&#125;(roleid=$&#123;roleid&#125;,userid=$&#123;userid&#125;,toastid=$&#123;toast.toastid&#125;)&#125;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>所以在这个项目里面我决定只设计一套后台，当用户点击没有权限打开的链接的时候，直接跳转到403无权限网页，提示用户没有权限，虽然对于后台来说并不美观，但是可以减少一大部分工作量，而且在实习过程中我发现基本所有的后台也是这么设计的，只不过他们设计的是网页弹窗。</p>
+</li>
+<li><p><strong>实现步骤</strong></p>
+</li>
+<li><p>1.创建User(用户)、Role(角色)、Permission(权限)三个表，三个表相互关联，这里不再演示</p>
+</li>
+<li><p>2.spring boot简单的集成Shiro。这里不再介绍，有需求请去查看上一篇文档</p>
+</li>
+<li><p>3.对CustomRealm中的授权方法<code>doGetAuthorizationInfo</code>进行重写</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> AuthorizationInfo <span class="title">doGetAuthorizationInfo</span><span class="params">(PrincipalCollection principal)</span> </span>&#123;</span><br><span class="line">        User user = (User) principal.getPrimaryPrincipal();</span><br><span class="line">        <span class="comment">//通过SimpleAuthorizationInfo做授权</span></span><br><span class="line">        SimpleAuthorizationInfo simpleAuthorizationInfo = <span class="keyword">new</span> SimpleAuthorizationInfo();</span><br><span class="line">        <span class="comment">//获取角色ID</span></span><br><span class="line">        <span class="keyword">int</span> roleId = user.getRoleId();</span><br><span class="line">        <span class="comment">//根据角色ID查询到角色信息</span></span><br><span class="line">        Role role = roleService.getRoleById(roleId);</span><br><span class="line">        <span class="comment">//设置角色</span></span><br><span class="line">        simpleAuthorizationInfo.addRole(role.getRoleName());</span><br><span class="line">        <span class="comment">//根据角色ID查询到该角色具有的权限列表</span></span><br><span class="line">        List&lt;String&gt; permissionList = permissionService.getPermissionByRoleId(roleId);</span><br><span class="line">        <span class="keyword">if</span> (permissionList==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//设置权限列表</span></span><br><span class="line">        simpleAuthorizationInfo.addStringPermissions(permissionList);</span><br><span class="line">        <span class="keyword">return</span> simpleAuthorizationInfo;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面主要通过SimpleAuthorizationInfo中的addRole和addStringPermissions添加当前用户拥有的角色和权限，与主体的授权信息进行比对。</li>
+<li>4.详细的权限配置分为注解式和编程式，这里我们采用注解式进行下面的编写。</li>
+<li>5.首先开启AOP注解，在ShiroConfig类中新增如下方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//开启AOP注解</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AuthorizationAttributeSourceAdvisor <span class="title">authorizationAttributeSourceAdvisor</span><span class="params">(SecurityManager securityManager)</span></span>&#123;</span><br><span class="line">        AuthorizationAttributeSourceAdvisor attributeSourceAdvisor = <span class="keyword">new</span> AuthorizationAttributeSourceAdvisor();</span><br><span class="line">        <span class="comment">//设置安全管理器</span></span><br><span class="line">        attributeSourceAdvisor.setSecurityManager(securityManager);</span><br><span class="line">        <span class="keyword">return</span> attributeSourceAdvisor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ConditionalOnMissingBean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DefaultAdvisorAutoProxyCreator <span class="title">defaultAdvisorAutoProxyCreator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DefaultAdvisorAutoProxyCreator defaultAAP = <span class="keyword">new</span> DefaultAdvisorAutoProxyCreator();</span><br><span class="line">        defaultAAP.setProxyTargetClass(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">return</span> defaultAAP;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>6.对于为授权的用户，需要进行友好的提示，所以在ShiroConfig中新增如下方法设置未授权用户跳转到的地址。（需要自己新建403.html）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SimpleMappingExceptionResolver <span class="title">simpleMappingExceptionResolver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        SimpleMappingExceptionResolver resolver = <span class="keyword">new</span> SimpleMappingExceptionResolver();</span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        <span class="comment">/*未授权处理页*/</span></span><br><span class="line">        properties.setProperty(<span class="string">"UnauthorizedException"</span>, <span class="string">"403.html"</span>);</span><br><span class="line">        resolver.setExceptionMappings(properties);</span><br><span class="line">        <span class="keyword">return</span> resolver;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>7.然后在Controller使用注解@RequiresRoles(“xxx”)和@RequiresPermissions(“xxx”)进行角色和权限的校检。（本处直接用网上的示例代码展示，因为已经采用了基于yml的动态配置权限，不再需要在后台配置无法更改的权限controller。）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/sing"</span>)</span><br><span class="line">   <span class="meta">@RequiresRoles</span>(<span class="string">"cat"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">sing</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="string">"sing"</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="meta">@GetMapping</span>(<span class="string">"/jump"</span>)</span><br><span class="line">   <span class="meta">@RequiresPermissions</span>(<span class="string">"jump"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">jump</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="string">"jump"</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-Springboot引入前端的shiro标签"><a href="#2-Springboot引入前端的shiro标签" class="headerlink" title="2.Springboot引入前端的shiro标签"></a>2.Springboot引入前端的shiro标签</h4><ul>
+<li><p>通常前端页面展示需要与用户的权限对等，即只给用户看到他们权限内的内容。<br>通常解决方式有两种：<br>其一：登录后通过读取数据库中角色和权限，获取需要展示的菜单内容，动态的在前端渲染；<br>其二：所有内容都在前端写好，通过前端的shiro标签控制对应权限内容部分的渲染</p>
+</li>
+<li><p>这里用第二种方式演示</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Shiro标签说明：</span><br><span class="line">guest标签：`<span class="tag">&lt;<span class="name">shiro:guest</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:guest</span>&gt;</span>`，用户没有身份验证时显示相应信息，即游客访问信息。</span><br><span class="line">user标签：`<span class="tag">&lt;<span class="name">shiro:user</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:user</span>&gt;</span>`，用户已经身份验证/记住我登录后显示相应的信息。</span><br><span class="line">authenticated标签:`<span class="tag">&lt;<span class="name">shiro:authenticated</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:authenticated</span>&gt;</span>`，用户已经身份验证通过，即Subject.login登录成功，不是记住我登录的。</span><br><span class="line">notAuthenticated标签:`<span class="tag">&lt;<span class="name">shiro:notAuthenticated</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:notAuthenticated</span>&gt;</span>`，用户已经身份验证通过，即没有调用Subject.login进行登录，包括记住我自动登录的也属于未进行身份验证。</span><br><span class="line">principal标签:`<span class="tag">&lt;<span class="name">shiro:</span> <span class="attr">principal</span>/&gt;</span><span class="tag">&lt;<span class="name">shiro:principal</span> <span class="attr">property</span>=<span class="string">"username"</span>/&gt;</span>`，相当`((User)Subject.getPrincipals()).getUsername()`。</span><br><span class="line">lacksPermission标签：`<span class="tag">&lt;<span class="name">shiro:lacksPermission</span> <span class="attr">name</span>=<span class="string">"org:create"</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:lacksPermission</span>&gt;</span>`，如果当前Subject没有权限将显示body体内容。</span><br><span class="line">hasRole标签：`<span class="tag">&lt;<span class="name">shiro:hasRole</span> <span class="attr">name</span>=<span class="string">"admin"</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:hasRole</span>&gt;</span>`，如果当前Subject有角色将显示body体内容。</span><br><span class="line">hasAnyRoles标签：`<span class="tag">&lt;<span class="name">shiro:hasAnyRoles</span> <span class="attr">name</span>=<span class="string">"admin,user"</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:hasAnyRoles</span>&gt;</span>`，如果当前Subject有任意一个角色（或的关系）将显示body体内容。</span><br><span class="line">lacksRole标签：`<span class="tag">&lt;<span class="name">shiro:lacksRole</span> <span class="attr">name</span>=<span class="string">"abc"</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:lacksRole</span>&gt;</span>`，如果当前Subject没有角色将显示body体内容。</span><br><span class="line">hasPermission标签：`<span class="tag">&lt;<span class="name">shiro:hasPermission</span> <span class="attr">name</span>=<span class="string">"user:create"</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:hasPermission</span>&gt;</span>`，如果当前Subject有权限将显示body体内容</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>步骤</strong></li>
+<li>1.添加pom依赖</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.theborakompanioni<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>thymeleaf-extras-shiro<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.ShiroConfig中添加配置</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> ShiroDialect <span class="title">shiroDialect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> ShiroDialect();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3.前端页面使用shiro标签</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">shiro:hasRole</span> <span class="attr">name</span>=<span class="string">"dog"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/dog"</span>&gt;</span>Dog<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:hasRole</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">shiro:hasRole</span> <span class="attr">name</span>=<span class="string">"cat"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/cat"</span>&gt;</span>Cat<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:hasRole</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">shiro:hasPermission</span> <span class="attr">name</span>=<span class="string">"sing"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/sing"</span>&gt;</span>Sing<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:hasPermission</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">shiro:hasPermission</span> <span class="attr">name</span>=<span class="string">"jump"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/jump"</span>&gt;</span>Jump<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:hasPermission</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">shiro:hasPermission</span> <span class="attr">name</span>=<span class="string">"rap"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/rap"</span>&gt;</span>Rap<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:hasPermission</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">shiro:hasPermission</span> <span class="attr">name</span>=<span class="string">"basketball"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/basketball"</span>&gt;</span>Basketball<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">shiro:hasPermission</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">注意：使用前现在html标签内引入shiro标签，即<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span> <span class="attr">xmlns:th</span>=<span class="string">"http://www.thymeleaf.org"</span> <span class="attr">xmlns:shiro</span>=<span class="string">"http://www.pollix.at/thymeleaf/shiro"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这种方式用一种问题就是必须在后台绑定当前用户的角色，不是很灵活，所以直接采用yml动态配置权限更加方便。</li>
+</ul>
+<h4 id="3-Springboot项目中Shiro基于yml来动态配置权限"><a href="#3-Springboot项目中Shiro基于yml来动态配置权限" class="headerlink" title="3.Springboot项目中Shiro基于yml来动态配置权限"></a>3.Springboot项目中Shiro基于yml来动态配置权限</h4><ul>
+<li>编程式和注解式进行授权在使用的时候都必须是写死在后台的，如果后期需要更改权限，就必须要进行后台代码的修改。这时候动态配置权限就很有必要了，我们通过读取数据库或者权限的配置文件将权限注入，如果需要修改，我们只需要修改数据库或者修改相关的配置文件即可。</li>
+<li><strong>步骤</strong></li>
+<li>1.在application.yml文件中添加需要用到的权限</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">permission-config:</span><br><span class="line">  perms:</span><br><span class="line">    - url: /cat</span><br><span class="line">      permission: roles[admin]</span><br><span class="line">    - url: /dog</span><br><span class="line">      permission: roles[customer]</span><br><span class="line">    - url: /sing</span><br><span class="line">      permission: perms[3]</span><br><span class="line">    - url: /jump</span><br><span class="line">      permission: perms[4]</span><br><span class="line">    - url: /rap</span><br><span class="line">      permission: perms[5]</span><br><span class="line">    - url: /basketball</span><br><span class="line">      permission: perms[6]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.将配置信息的内容转化为<code>List&lt;Map&lt;String,String&gt;&gt;</code>注入到ShiroConfig中。新建PermsMap类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sc.config;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"permission-config"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PermsMap</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;Map&lt;String,String&gt;&gt; perms;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;Map&lt;String,String&gt;&gt; getPerms()&#123;</span><br><span class="line">        <span class="keyword">return</span> perms;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPerms</span><span class="params">(List&lt;Map&lt;String,String&gt;&gt; perms)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.perms=perms;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3.修改ShiroConfig：先使用@Autowired注入PermsMap，然后更改过滤链</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">    PermsMap permsMap;</span><br><span class="line">    </span><br><span class="line"><span class="comment">/*配置Shiro的web过滤器，拦截浏览器请求并交给SecurityManager处理**/</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ShiroFilterFactoryBean <span class="title">webFilter</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ShiroFilterFactoryBean shiroFilterFactoryBean = <span class="keyword">new</span> ShiroFilterFactoryBean();</span><br><span class="line">        shiroFilterFactoryBean.setSecurityManager(securityManager());</span><br><span class="line">        Map&lt;String, String&gt; filterChainMap  = <span class="keyword">new</span> LinkedHashMap&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">        filterChainMap.put(<span class="string">"/login"</span>,<span class="string">"anon"</span>);</span><br><span class="line">        filterChainMap.put(<span class="string">"/to_login"</span>,<span class="string">"anon"</span>);</span><br><span class="line">        filterChainMap.put(<span class="string">"/getCode"</span>,<span class="string">"anon"</span>);</span><br><span class="line">        filterChainMap.put(<span class="string">"/logout"</span>,<span class="string">"logout"</span>);</span><br><span class="line">        filterChainMap.put(<span class="string">"/login/**"</span>,<span class="string">"anon"</span>);</span><br><span class="line">        filterChainMap.put(<span class="string">"/img/**"</span>,<span class="string">"anon"</span>);</span><br><span class="line">        filterChainMap.put(<span class="string">"/statics/**"</span>,<span class="string">"anon"</span>);</span><br><span class="line">        shiroFilterFactoryBean.setUnauthorizedUrl(<span class="string">"/403"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//动态权限注入</span></span><br><span class="line">        List&lt;Map&lt;String, String&gt;&gt; perms = permsMap.getPerms();</span><br><span class="line">        perms.forEach(perm-&gt;filterChainMap.put(perm.get(<span class="string">"url"</span>),perm.get(<span class="string">"permission"</span>)));</span><br><span class="line">        filterChainMap.put(<span class="string">"/"</span>,<span class="string">"user"</span>);</span><br><span class="line"></span><br><span class="line">        shiroFilterFactoryBean.setLoginUrl(<span class="string">"/login"</span>);</span><br><span class="line">        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainMap);</span><br><span class="line">        <span class="keyword">return</span> shiroFilterFactoryBean;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>更改AuthorizationController</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sc.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthorizationController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/cat"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">cat</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"cat"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/dog"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">dog</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"dog"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/sing"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sing</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"sing"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/jump"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">jump</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"jump"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/rap"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">rap</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"rap"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/basketball"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">basketball</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"basketball"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/403"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">page_403</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"403"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-Springboot项目中使用shiro-redis缓存"><a href="#4-Springboot项目中使用shiro-redis缓存" class="headerlink" title="4.Springboot项目中使用shiro-redis缓存"></a>4.Springboot项目中使用shiro-redis缓存</h4><ul>
+<li>已经配置过详细的权限配置的情况下，如果我们想要验证用户是否有权限访问某一个链接，我们需要在后台直接查询数据库，才能确认当前用户是否有权限，这样会大大增加数据库的压力。这时候就需要使用Shiro-Redis缓存。</li>
+<li><strong>步骤</strong></li>
+<li>1.安装Redis（步骤请网上搜索，下载解压即可正常使用）</li>
+<li>2.引入shiro-redis依赖(暂时只知道在Spring2.2.1的版本下只能够使用3.2.3版本的shiro-redis依赖，3.1.0以下的版本不建议使用，否则会报异常，在下面会介绍异常种类。在任何spring版本下都建议使用3.2.3版本)</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.crazycake<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>shiro-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3.在application.yml中配置redis的相关参数（参数的具体含义请参考redis官方文档）</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">redis:</span><br><span class="line">    host: localhost</span><br><span class="line">    port: 6379</span><br><span class="line">    jedis:</span><br><span class="line">      pool:</span><br><span class="line">        max-idle: 8</span><br><span class="line">        min-idle: 0</span><br><span class="line">        max-active: 8</span><br><span class="line">        max-wait: -1</span><br><span class="line">    timeout: 0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3.可以在ShiroConfig中添加redis相应的配置或者新建一个RedisConfig</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">   redisManager</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisManager <span class="title">redisManager</span><span class="params">()</span></span>&#123;</span><br><span class="line">        RedisManager redisManager = <span class="keyword">new</span> RedisManager();</span><br><span class="line">        redisManager.setHost(host + <span class="string">":"</span> + port);</span><br><span class="line">        redisManager.setTimeout(timeout);</span><br><span class="line">        redisManager.setDatabase(database);</span><br><span class="line">        <span class="keyword">return</span> redisManager;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    CacheManager</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisCacheManager <span class="title">redisCacheManager</span><span class="params">()</span></span>&#123;</span><br><span class="line">        RedisCacheManager redisCacheManager = <span class="keyword">new</span> RedisCacheManager();</span><br><span class="line">        redisCacheManager.setRedisManager(redisManager());</span><br><span class="line">        redisCacheManager.setPrincipalIdFieldName(<span class="string">"userId"</span>);</span><br><span class="line">        <span class="keyword">return</span> redisCacheManager;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    redisSessionDao</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisSessionDAO <span class="title">redisSessionDAO</span><span class="params">()</span></span>&#123;</span><br><span class="line">        RedisSessionDAO redisSessionDAO = <span class="keyword">new</span> RedisSessionDAO();</span><br><span class="line">        redisSessionDAO.setRedisManager(redisManager());</span><br><span class="line">        <span class="keyword">return</span> redisSessionDAO;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    sessionManager</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DefaultWebSessionManager <span class="title">sessionManager</span><span class="params">()</span></span>&#123;</span><br><span class="line">        DefaultWebSessionManager sessionManager = <span class="keyword">new</span> DefaultWebSessionManager();</span><br><span class="line">        sessionManager.setSessionDAO(redisSessionDAO());</span><br><span class="line">        <span class="keyword">return</span> sessionManager;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>4.将session管理器和cache管理器注入到SecurityManager中</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span>(name = <span class="string">"securityManager"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> SecurityManager <span class="title">securityManager</span><span class="params">()</span></span>&#123;</span><br><span class="line">       DefaultWebSecurityManager securityManager = <span class="keyword">new</span> DefaultWebSecurityManager();</span><br><span class="line">       securityManager.setRealm(customRealm());</span><br><span class="line">       securityManager.setSessionManager(sessionManager());</span><br><span class="line">       securityManager.setCacheManager(redisCacheManager());</span><br><span class="line">       <span class="keyword">return</span> securityManager;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>5.启动Redis，然后启动项目，如果有RedisDesktopManager的话，也可以打开RDM。运行项目并登录后，进行权限操作，会在RDM中看到数据被写入到Redis缓存中。并且不会调用后台方法进行验证。<br><img data-src="https://cdn.u1.huluxia.com/g3/M03/51/BD/wKgBOV3XjHeAIGurAALQ5eKQs8g099.png" alt=""></li>
+</ul>
+<h4 id="5-Springboot项目中使用Shiro实现RememberMe（记住我）功能"><a href="#5-Springboot项目中使用Shiro实现RememberMe（记住我）功能" class="headerlink" title="5.Springboot项目中使用Shiro实现RememberMe（记住我）功能"></a>5.Springboot项目中使用Shiro实现RememberMe（记住我）功能</h4><ul>
+<li>在实现用户登录后，关闭浏览器，再次打开浏览器无需重新登录的功能RememberMe。</li>
+<li><strong>步骤</strong></li>
+<li>1.ShiroConfig.java中添加rememberMeManager的配置</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    cokkie对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SimpleCookie <span class="title">rememberMeCookie</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//这个参数是cookie的名称，对应前端的checkbox的name=remember</span></span><br><span class="line">        SimpleCookie simpleCookie = <span class="keyword">new</span> SimpleCookie(<span class="string">"remember"</span>);</span><br><span class="line">        <span class="comment">//cookie生效时间，单位为秒</span></span><br><span class="line">        simpleCookie.setMaxAge(<span class="number">600</span>);</span><br><span class="line">        <span class="keyword">return</span> simpleCookie;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    cookie管理对象，记住我功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CookieRememberMeManager <span class="title">rememberMeManager</span><span class="params">()</span></span>&#123;</span><br><span class="line">        CookieRememberMeManager cookieRememberMeManager = <span class="keyword">new</span> CookieRememberMeManager();</span><br><span class="line">        cookieRememberMeManager.setCookie(rememberMeCookie());</span><br><span class="line">        <span class="comment">//cookieRememberMeManager.setCipherKey用来设置加密的Key,参数类型byte[],字节数组长度要求16</span></span><br><span class="line">        cookieRememberMeManager.setCipherKey(<span class="string">"jokerboozpspring"</span>.getBytes());</span><br><span class="line">        <span class="keyword">return</span> cookieRememberMeManager;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.注入到SecurityManager</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span>(name = <span class="string">"securityManager"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> SecurityManager <span class="title">securityManager</span><span class="params">()</span></span>&#123;</span><br><span class="line">       DefaultWebSecurityManager securityManager = <span class="keyword">new</span> DefaultWebSecurityManager();</span><br><span class="line">       securityManager.setRealm(customRealm());</span><br><span class="line">       securityManager.setSessionManager(sessionManager());</span><br><span class="line">       securityManager.setCacheManager(redisCacheManager());</span><br><span class="line">       securityManager.setRememberMeManager(rememberMeManager());</span><br><span class="line">       <span class="keyword">return</span> securityManager;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3.修改登录界面（在登陆操作的form表单中加入checkbox）</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"rememberMe"</span>&gt;</span>记住我</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>4.修改LoginController</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(&#123;<span class="string">"/"</span>,<span class="string">"/success"</span>&#125;)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">success</span><span class="params">(Model model)</span></span>&#123;</span><br><span class="line">       Subject currentUser = SecurityUtils.getSubject();</span><br><span class="line">       User user = (User) currentUser.getPrincipal();</span><br><span class="line">       model.addAttribute(<span class="string">"username"</span>, user.getUsername());</span><br><span class="line">       <span class="keyword">return</span> <span class="string">"success"</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(String username, String password, <span class="keyword">boolean</span> rememberMe, Model model)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">       UsernamePasswordToken token = <span class="keyword">new</span> UsernamePasswordToken(username,password);</span><br><span class="line">       Subject currentUser = SecurityUtils.getSubject();</span><br><span class="line"></span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="comment">//主体提交登录请求到SecurityManager</span></span><br><span class="line">           token.setRememberMe(rememberMe);</span><br><span class="line">           currentUser.login(token);</span><br><span class="line">       &#125;<span class="keyword">catch</span> (IncorrectCredentialsException ice)&#123;</span><br><span class="line">           model.addAttribute(<span class="string">"msg"</span>,<span class="string">"密码不正确"</span>);</span><br><span class="line">       &#125;<span class="keyword">catch</span>(UnknownAccountException uae)&#123;</span><br><span class="line">           model.addAttribute(<span class="string">"msg"</span>,<span class="string">"账号不存在"</span>);</span><br><span class="line">       &#125;<span class="keyword">catch</span>(AuthenticationException ae)&#123;</span><br><span class="line">           model.addAttribute(<span class="string">"msg"</span>,<span class="string">"状态不正常"</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span>(currentUser.isAuthenticated())&#123;</span><br><span class="line">           System.out.println(<span class="string">"认证成功"</span>);</span><br><span class="line">           model.addAttribute(<span class="string">"currentUser"</span>,currentUser);</span><br><span class="line">           <span class="keyword">return</span> <span class="string">"/success"</span>;</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           token.clear();</span><br><span class="line">           <span class="keyword">return</span> <span class="string">"login"</span>;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-Springboot项目中使用Shiro来集成Kaptcha验证码"><a href="#6-Springboot项目中使用Shiro来集成Kaptcha验证码" class="headerlink" title="6.Springboot项目中使用Shiro来集成Kaptcha验证码"></a>6.Springboot项目中使用Shiro来集成Kaptcha验证码</h4><ul>
+<li>通过引入Kaptcha来实现图片验证码功能</li>
+<li><strong>步骤</strong></li>
+<li>1.引入pom依赖</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.penggle<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>kaptcha<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.创建KaptchaConfig.java配置类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sc.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.google.code.kaptcha.impl.DefaultKaptcha;</span><br><span class="line"><span class="keyword">import</span> com.google.code.kaptcha.util.Config;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KaptchaConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String CODE_LENGTH=<span class="string">"4"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String SESSION_KEY = <span class="string">"verification_session_key"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DefaultKaptcha <span class="title">defaultKaptcha</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DefaultKaptcha defaultKaptcha = <span class="keyword">new</span> DefaultKaptcha();</span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        <span class="comment">// 设置边框</span></span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.border"</span>, <span class="string">"no"</span>);</span><br><span class="line">        <span class="comment">// 设置边框颜色</span></span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.border.color"</span>, <span class="string">"105,179,90"</span>);</span><br><span class="line">        <span class="comment">// 设置字体颜色</span></span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.textproducer.font.color"</span>, <span class="string">"blue"</span>);</span><br><span class="line">        <span class="comment">// 设置图片宽度</span></span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.image.width"</span>, <span class="string">"173"</span>);</span><br><span class="line">        <span class="comment">// 设置图片高度</span></span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.image.height"</span>, <span class="string">"40"</span>);</span><br><span class="line">        <span class="comment">// 设置字体尺寸</span></span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.textproducer.font.size"</span>, <span class="string">"32"</span>);</span><br><span class="line">        <span class="comment">// 设置图片样式</span></span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.obscurificator.impl"</span>,<span class="string">"com.google.code.kaptcha.impl.ShadowGimpy"</span>);</span><br><span class="line">        <span class="comment">// 设置session key</span></span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.session.key"</span>, SESSION_KEY);</span><br><span class="line">        <span class="comment">// 设置验证码长度</span></span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.textproducer.char.length"</span>, CODE_LENGTH);</span><br><span class="line">        <span class="comment">// 设置字体</span></span><br><span class="line">        properties.setProperty(<span class="string">"kaptcha.textproducer.font.names"</span>, <span class="string">"宋体,楷体,黑体"</span>);</span><br><span class="line">        Config config = <span class="keyword">new</span> Config(properties);</span><br><span class="line">        defaultKaptcha.setConfig(config);</span><br><span class="line">        <span class="keyword">return</span> defaultKaptcha;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3.LoginController添加获取验证码的方法(直接附上完整的controller代码，不想再找了)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sc.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.google.code.kaptcha.impl.DefaultKaptcha;</span><br><span class="line"><span class="keyword">import</span> com.sc.entity.User;</span><br><span class="line"><span class="keyword">import</span> com.sc.service.UserService;</span><br><span class="line"><span class="keyword">import</span> org.apache.shiro.SecurityUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.shiro.authc.AuthenticationException;</span><br><span class="line"><span class="keyword">import</span> org.apache.shiro.authc.IncorrectCredentialsException;</span><br><span class="line"><span class="keyword">import</span> org.apache.shiro.authc.UnknownAccountException;</span><br><span class="line"><span class="keyword">import</span> org.apache.shiro.authc.UsernamePasswordToken;</span><br><span class="line"><span class="keyword">import</span> org.apache.shiro.authz.annotation.RequiresRoles;</span><br><span class="line"><span class="keyword">import</span> org.apache.shiro.subject.Subject;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.ui.Model;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.imageio.ImageIO;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletOutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.awt.image.BufferedImage;</span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * session中的验证码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String SHIRO_VERIFY_SESSION = <span class="string">"verifySessionCode"</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 错误后的跳转地址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String ERROR_CODE_URL = <span class="string">"login"</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 成功后的跳转地址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String SUCCESS_CODE_URL = <span class="string">"/success"</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 验证失败提示</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String ERROR_PASSWORD = <span class="string">"密码不正确"</span>;</span><br><span class="line">    <span class="keyword">private</span> String ERROR_ACCOUNT = <span class="string">"账户不存在"</span>;</span><br><span class="line">    <span class="keyword">private</span> String ERROR_STATUS = <span class="string">"状态不正常"</span>;</span><br><span class="line">    <span class="keyword">private</span> String ERROR_KAPTCHA = <span class="string">"验证码不正确"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> DefaultKaptcha defaultKaptcha;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(&#123;<span class="string">"/"</span>,<span class="string">"/success"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">success</span><span class="params">(Model model)</span></span>&#123;</span><br><span class="line">        Subject currentUser = SecurityUtils.getSubject();</span><br><span class="line">        User user = (User) currentUser.getPrincipal();</span><br><span class="line">        model.addAttribute(<span class="string">"userName"</span>,user.getUserName());</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"success"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR_CODE_URL;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/to_login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toLogin</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"login"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(String userName,String verifyCode, String password,<span class="keyword">boolean</span> rememberMe, Model model)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        UsernamePasswordToken token = <span class="keyword">new</span> UsernamePasswordToken(userName,password,rememberMe);</span><br><span class="line">        Subject currentUser = SecurityUtils.getSubject();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取session中的验证码</span></span><br><span class="line">        String verCode = (String) currentUser.getSession().getAttribute(SHIRO_VERIFY_SESSION);</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">""</span>.equals(verifyCode)||(!verCode.equals(verifyCode)))&#123;</span><br><span class="line">            model.addAttribute(<span class="string">"msg"</span>,ERROR_KAPTCHA);</span><br><span class="line">            <span class="keyword">return</span> ERROR_CODE_URL;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            token.setRememberMe(rememberMe);</span><br><span class="line">            <span class="comment">//主体提交登录请求到SecurityManager</span></span><br><span class="line">            currentUser.login(token);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (IncorrectCredentialsException ice)&#123;</span><br><span class="line">            model.addAttribute(<span class="string">"msg"</span>,ERROR_PASSWORD);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(UnknownAccountException uae)&#123;</span><br><span class="line">            model.addAttribute(<span class="string">"msg"</span>,ERROR_ACCOUNT);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(AuthenticationException ae)&#123;</span><br><span class="line">            model.addAttribute(<span class="string">"msg"</span>,ERROR_STATUS);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(currentUser.isAuthenticated())&#123;</span><br><span class="line">            model.addAttribute(<span class="string">"userName"</span>,userName);</span><br><span class="line">            <span class="keyword">return</span> SUCCESS_CODE_URL;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            token.clear();</span><br><span class="line">            <span class="keyword">return</span> ERROR_CODE_URL;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    获取验证码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/getCode"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getGifCode</span><span class="params">(HttpServletResponse response, HttpServletRequest request)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] verByte = <span class="keyword">null</span>;</span><br><span class="line">        ByteArrayOutputStream jpegOutputStream = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//生产验证码字符串并保存到session中</span></span><br><span class="line">            String createText = defaultKaptcha.createText();</span><br><span class="line">            request.getSession().setAttribute(SHIRO_VERIFY_SESSION,createText);</span><br><span class="line">            <span class="comment">//使用生产的验证码字符串返回一个BufferedImage对象并转为byte写入到byte数组中</span></span><br><span class="line">            BufferedImage challenge = defaultKaptcha.createImage(createText);</span><br><span class="line">            ImageIO.write(challenge,<span class="string">"jpg"</span>,jpegOutputStream);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalArgumentException e)&#123;</span><br><span class="line">            response.sendError(HttpServletResponse.SC_NOT_FOUND);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//定义response输出类型为image/jpeg类型，使用response输出流输出图片的byte数组</span></span><br><span class="line">        verByte = jpegOutputStream.toByteArray();</span><br><span class="line">        response.setHeader(<span class="string">"Cache-Control"</span>, <span class="string">"no-store"</span>);</span><br><span class="line">        response.setHeader(<span class="string">"Pragma"</span>, <span class="string">"no-cache"</span>);</span><br><span class="line">        response.setDateHeader(<span class="string">"Expires"</span>, <span class="number">0</span>);</span><br><span class="line">        response.setContentType(<span class="string">"image/jpeg"</span>);</span><br><span class="line">        ServletOutputStream responseOutputStream = response.getOutputStream();</span><br><span class="line">        responseOutputStream.write(verByte);</span><br><span class="line">        responseOutputStream.flush();</span><br><span class="line">        responseOutputStream.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>4.更改login.html</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"verifyCode"</span> <span class="attr">placeholder</span>=<span class="string">"请输入验证码"</span> <span class="attr">class</span>=<span class="string">"form-control border-0 shadow form-control-lg text-violet"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">style</span>=<span class="string">"text-decoration: none;color: black;"</span> <span class="attr">onclick</span>=<span class="string">"refreshCode()"</span>&gt;</span>换一个<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"verifyCode"</span> <span class="attr">th:src</span>=<span class="string">"@&#123;/getCode&#125;"</span> <span class="attr">style</span>=<span class="string">"margin-left: 16px"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">    <span class="function"><span class="keyword">function</span> <span class="title">refreshCode</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">"verifyCode"</span>).setAttribute(<span class="string">"src"</span>,<span class="string">"/getCode"</span>);</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>5.在ShiroConfig中配置/getCode可以游客方式访问</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filterChainMap.put(<span class="string">"/getCode"</span>,<span class="string">"anon"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>6.修改登录方法（具体代码见上面LoginControlller代码）</li>
+<li>最终效果（目前我项目的效果，但是大体框架一样，只是添加了样式）</li>
+</ul>
+<p><img data-src="https://cdn.u1.huluxia.com/g3/M00/51/C2/wKgBOV3Xj6iAGsCIAAH8etVgxOc596.png" alt=""></p>
+<h4 id="7-项目构建过程中遇到的错误"><a href="#7-项目构建过程中遇到的错误" class="headerlink" title="7.项目构建过程中遇到的错误"></a>7.项目构建过程中遇到的错误</h4><ul>
+<li><strong>用来展示自己在配置过程中遇到的错误信息，不包括全部，因为有的问题比较简单，就不再显示，有的单纯是我忘了。。。</strong></li>
+<li>1.shiro无法进入授权的方法(这是困扰我最久的一个问题，卡在这里了两天。有两个原因导致这个错误)。报错信息如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2019</span>-<span class="number">11</span>-<span class="number">21</span> <span class="number">13</span>:<span class="number">12</span>:<span class="number">18.743</span> ERROR <span class="number">12736</span> --- [nio-<span class="number">8090</span>-exec-<span class="number">2</span>] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() <span class="keyword">for</span> servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateInputException: <span class="function">An error happened during template <span class="title">parsing</span> <span class="params">(template: <span class="string">"class path resource [templates/success.html]"</span>)</span>] with root cause</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">org.crazycake.shiro.exception.PrincipalInstanceException: class com.sc.entity.User must has getter <span class="keyword">for</span> field: authCacheKey or id</span></span><br><span class="line"><span class="function">We need a field to identify <span class="keyword">this</span> Cache Object in Redis. So you need to defined an id field which you can get unique id to identify <span class="keyword">this</span> principal. For example, <span class="keyword">if</span> you use UserInfo as Principal class, the id field maybe userId, userName, email, etc. For example, <span class="title">getUserId</span><span class="params">()</span>, <span class="title">getUserName</span><span class="params">()</span>, <span class="title">getEmail</span><span class="params">()</span>, etc.</span></span><br><span class="line"><span class="function">Default value is authCacheKey or id, that means your principal object has a method called "<span class="title">getAuthCacheKey</span><span class="params">()</span>" or "<span class="title">getId</span><span class="params">()</span>"</span></span><br><span class="line"><span class="function">	at org.crazycake.shiro.RedisCache.<span class="title">getRedisKeyFromPrincipalIdField</span><span class="params">(RedisCache.java:<span class="number">150</span>)</span> ~[shiro-redis-3.1.0.jar:na]</span></span><br><span class="line"><span class="function">	at org.crazycake.shiro.RedisCache.<span class="title">getStringRedisKey</span><span class="params">(RedisCache.java:<span class="number">126</span>)</span> ~[shiro-redis-3.1.0.jar:na]</span></span><br><span class="line"><span class="function">	at org.crazycake.shiro.RedisCache.<span class="title">getRedisCacheKey</span><span class="params">(RedisCache.java:<span class="number">118</span>)</span> ~[shiro-redis-3.1.0.jar:na]</span></span><br><span class="line"><span class="function">	at org.crazycake.shiro.RedisCache.<span class="title">get</span><span class="params">(RedisCache.java:<span class="number">68</span>)</span> ~[shiro-redis-3.1.0.jar:na]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.realm.AuthorizingRealm.<span class="title">getAuthorizationInfo</span><span class="params">(AuthorizingRealm.java:<span class="number">328</span>)</span> ~[shiro-core-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.realm.AuthorizingRealm.<span class="title">hasRole</span><span class="params">(AuthorizingRealm.java:<span class="number">573</span>)</span> ~[shiro-core-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.authz.ModularRealmAuthorizer.<span class="title">hasRole</span><span class="params">(ModularRealmAuthorizer.java:<span class="number">374</span>)</span> ~[shiro-core-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.mgt.AuthorizingSecurityManager.<span class="title">hasRole</span><span class="params">(AuthorizingSecurityManager.java:<span class="number">153</span>)</span> ~[shiro-core-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.subject.support.DelegatingSubject.<span class="title">hasRole</span><span class="params">(DelegatingSubject.java:<span class="number">224</span>)</span> ~[shiro-core-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at at.pollux.thymeleaf.shiro.processor.ShiroFacade.<span class="title">hasAllRoles</span><span class="params">(ShiroFacade.java:<span class="number">115</span>)</span> ~[thymeleaf-extras-shiro-2.0.0.jar:na]</span></span><br><span class="line"><span class="function">	at at.pollux.thymeleaf.shiro.processor.element.HasRoleElementProcessor.<span class="title">doProcess</span><span class="params">(HasRoleElementProcessor.java:<span class="number">39</span>)</span> ~[thymeleaf-extras-shiro-2.0.0.jar:na]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.processor.element.AbstractElementTagProcessor.<span class="title">process</span><span class="params">(AbstractElementTagProcessor.java:<span class="number">95</span>)</span> ~[thymeleaf-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.util.ProcessorConfigurationUtils$ElementTagProcessorWrapper.<span class="title">process</span><span class="params">(ProcessorConfigurationUtils.java:<span class="number">633</span>)</span> ~[thymeleaf-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.engine.ProcessorTemplateHandler.<span class="title">handleOpenElement</span><span class="params">(ProcessorTemplateHandler.java:<span class="number">1314</span>)</span> ~[thymeleaf-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.engine.TemplateHandlerAdapterMarkupHandler.<span class="title">handleOpenElementEnd</span><span class="params">(TemplateHandlerAdapterMarkupHandler.java:<span class="number">304</span>)</span> ~[thymeleaf-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler$InlineMarkupAdapterPreProcessorHandler.<span class="title">handleOpenElementEnd</span><span class="params">(InlinedOutputExpressionMarkupHandler.java:<span class="number">278</span>)</span> ~[thymeleaf-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.standard.inline.OutputExpressionInlinePreProcessorHandler.<span class="title">handleOpenElementEnd</span><span class="params">(OutputExpressionInlinePreProcessorHandler.java:<span class="number">186</span>)</span> ~[thymeleaf-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler.<span class="title">handleOpenElementEnd</span><span class="params">(InlinedOutputExpressionMarkupHandler.java:<span class="number">124</span>)</span> ~[thymeleaf-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.attoparser.HtmlElement.<span class="title">handleOpenElementEnd</span><span class="params">(HtmlElement.java:<span class="number">109</span>)</span> ~[attoparser-2.0.5.RELEASE.jar:2.0.5.RELEASE]</span></span><br><span class="line"><span class="function">	at org.attoparser.HtmlMarkupHandler.<span class="title">handleOpenElementEnd</span><span class="params">(HtmlMarkupHandler.java:<span class="number">297</span>)</span> ~[attoparser-2.0.5.RELEASE.jar:2.0.5.RELEASE]</span></span><br><span class="line"><span class="function">	at org.attoparser.MarkupEventProcessorHandler.<span class="title">handleOpenElementEnd</span><span class="params">(MarkupEventProcessorHandler.java:<span class="number">402</span>)</span> ~[attoparser-2.0.5.RELEASE.jar:2.0.5.RELEASE]</span></span><br><span class="line"><span class="function">	at org.attoparser.ParsingElementMarkupUtil.<span class="title">parseOpenElement</span><span class="params">(ParsingElementMarkupUtil.java:<span class="number">159</span>)</span> ~[attoparser-2.0.5.RELEASE.jar:2.0.5.RELEASE]</span></span><br><span class="line"><span class="function">	at org.attoparser.MarkupParser.<span class="title">parseBuffer</span><span class="params">(MarkupParser.java:<span class="number">710</span>)</span> ~[attoparser-2.0.5.RELEASE.jar:2.0.5.RELEASE]</span></span><br><span class="line"><span class="function">	at org.attoparser.MarkupParser.<span class="title">parseDocument</span><span class="params">(MarkupParser.java:<span class="number">301</span>)</span> ~[attoparser-2.0.5.RELEASE.jar:2.0.5.RELEASE]</span></span><br><span class="line"><span class="function">	at org.attoparser.MarkupParser.<span class="title">parse</span><span class="params">(MarkupParser.java:<span class="number">257</span>)</span> ~[attoparser-2.0.5.RELEASE.jar:2.0.5.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.<span class="title">parse</span><span class="params">(AbstractMarkupTemplateParser.java:<span class="number">230</span>)</span> ~[thymeleaf-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.<span class="title">parseStandalone</span><span class="params">(AbstractMarkupTemplateParser.java:<span class="number">100</span>)</span> ~[thymeleaf-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.engine.TemplateManager.<span class="title">parseAndProcess</span><span class="params">(TemplateManager.java:<span class="number">666</span>)</span> ~[thymeleaf-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.TemplateEngine.<span class="title">process</span><span class="params">(TemplateEngine.java:<span class="number">1098</span>)</span> ~[thymeleaf-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.TemplateEngine.<span class="title">process</span><span class="params">(TemplateEngine.java:<span class="number">1072</span>)</span> ~[thymeleaf-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.spring5.view.ThymeleafView.<span class="title">renderFragment</span><span class="params">(ThymeleafView.java:<span class="number">362</span>)</span> ~[thymeleaf-spring5-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.thymeleaf.spring5.view.ThymeleafView.<span class="title">render</span><span class="params">(ThymeleafView.java:<span class="number">189</span>)</span> ~[thymeleaf-spring5-3.0.11.RELEASE.jar:3.0.11.RELEASE]</span></span><br><span class="line"><span class="function">	at org.springframework.web.servlet.DispatcherServlet.<span class="title">render</span><span class="params">(DispatcherServlet.java:<span class="number">1373</span>)</span> ~[spring-webmvc-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at org.springframework.web.servlet.DispatcherServlet.<span class="title">processDispatchResult</span><span class="params">(DispatcherServlet.java:<span class="number">1118</span>)</span> ~[spring-webmvc-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at org.springframework.web.servlet.DispatcherServlet.<span class="title">doDispatch</span><span class="params">(DispatcherServlet.java:<span class="number">1057</span>)</span> ~[spring-webmvc-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at org.springframework.web.servlet.DispatcherServlet.<span class="title">doService</span><span class="params">(DispatcherServlet.java:<span class="number">943</span>)</span> ~[spring-webmvc-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at org.springframework.web.servlet.FrameworkServlet.<span class="title">processRequest</span><span class="params">(FrameworkServlet.java:<span class="number">1006</span>)</span> ~[spring-webmvc-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at org.springframework.web.servlet.FrameworkServlet.<span class="title">doPost</span><span class="params">(FrameworkServlet.java:<span class="number">909</span>)</span> ~[spring-webmvc-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at javax.servlet.http.HttpServlet.<span class="title">service</span><span class="params">(HttpServlet.java:<span class="number">660</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.springframework.web.servlet.FrameworkServlet.<span class="title">service</span><span class="params">(FrameworkServlet.java:<span class="number">883</span>)</span> ~[spring-webmvc-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at javax.servlet.http.HttpServlet.<span class="title">service</span><span class="params">(HttpServlet.java:<span class="number">741</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.ApplicationFilterChain.<span class="title">internalDoFilter</span><span class="params">(ApplicationFilterChain.java:<span class="number">231</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.ApplicationFilterChain.<span class="title">doFilter</span><span class="params">(ApplicationFilterChain.java:<span class="number">166</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.tomcat.websocket.server.WsFilter.<span class="title">doFilter</span><span class="params">(WsFilter.java:<span class="number">53</span>)</span> ~[tomcat-embed-websocket-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.ApplicationFilterChain.<span class="title">internalDoFilter</span><span class="params">(ApplicationFilterChain.java:<span class="number">193</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.ApplicationFilterChain.<span class="title">doFilter</span><span class="params">(ApplicationFilterChain.java:<span class="number">166</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.web.servlet.ProxiedFilterChain.<span class="title">doFilter</span><span class="params">(ProxiedFilterChain.java:<span class="number">61</span>)</span> ~[shiro-web-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.web.servlet.AdviceFilter.<span class="title">executeChain</span><span class="params">(AdviceFilter.java:<span class="number">108</span>)</span> ~[shiro-web-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.web.servlet.AdviceFilter.<span class="title">doFilterInternal</span><span class="params">(AdviceFilter.java:<span class="number">137</span>)</span> ~[shiro-web-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.web.servlet.OncePerRequestFilter.<span class="title">doFilter</span><span class="params">(OncePerRequestFilter.java:<span class="number">125</span>)</span> ~[shiro-web-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.web.servlet.ProxiedFilterChain.<span class="title">doFilter</span><span class="params">(ProxiedFilterChain.java:<span class="number">66</span>)</span> ~[shiro-web-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.web.servlet.AbstractShiroFilter.<span class="title">executeChain</span><span class="params">(AbstractShiroFilter.java:<span class="number">449</span>)</span> ~[shiro-web-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.<span class="title">call</span><span class="params">(AbstractShiroFilter.java:<span class="number">365</span>)</span> ~[shiro-web-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.subject.support.SubjectCallable.<span class="title">doCall</span><span class="params">(SubjectCallable.java:<span class="number">90</span>)</span> ~[shiro-core-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.subject.support.SubjectCallable.<span class="title">call</span><span class="params">(SubjectCallable.java:<span class="number">83</span>)</span> ~[shiro-core-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.subject.support.DelegatingSubject.<span class="title">execute</span><span class="params">(DelegatingSubject.java:<span class="number">383</span>)</span> ~[shiro-core-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.web.servlet.AbstractShiroFilter.<span class="title">doFilterInternal</span><span class="params">(AbstractShiroFilter.java:<span class="number">362</span>)</span> ~[shiro-web-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.shiro.web.servlet.OncePerRequestFilter.<span class="title">doFilter</span><span class="params">(OncePerRequestFilter.java:<span class="number">125</span>)</span> ~[shiro-web-1.3.2.jar:1.3.2]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.ApplicationFilterChain.<span class="title">internalDoFilter</span><span class="params">(ApplicationFilterChain.java:<span class="number">193</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.ApplicationFilterChain.<span class="title">doFilter</span><span class="params">(ApplicationFilterChain.java:<span class="number">166</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.springframework.web.filter.RequestContextFilter.<span class="title">doFilterInternal</span><span class="params">(RequestContextFilter.java:<span class="number">100</span>)</span> ~[spring-web-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at org.springframework.web.filter.OncePerRequestFilter.<span class="title">doFilter</span><span class="params">(OncePerRequestFilter.java:<span class="number">119</span>)</span> ~[spring-web-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.ApplicationFilterChain.<span class="title">internalDoFilter</span><span class="params">(ApplicationFilterChain.java:<span class="number">193</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.ApplicationFilterChain.<span class="title">doFilter</span><span class="params">(ApplicationFilterChain.java:<span class="number">166</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.springframework.web.filter.FormContentFilter.<span class="title">doFilterInternal</span><span class="params">(FormContentFilter.java:<span class="number">93</span>)</span> ~[spring-web-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at org.springframework.web.filter.OncePerRequestFilter.<span class="title">doFilter</span><span class="params">(OncePerRequestFilter.java:<span class="number">119</span>)</span> ~[spring-web-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.ApplicationFilterChain.<span class="title">internalDoFilter</span><span class="params">(ApplicationFilterChain.java:<span class="number">193</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.ApplicationFilterChain.<span class="title">doFilter</span><span class="params">(ApplicationFilterChain.java:<span class="number">166</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.springframework.web.filter.CharacterEncodingFilter.<span class="title">doFilterInternal</span><span class="params">(CharacterEncodingFilter.java:<span class="number">201</span>)</span> ~[spring-web-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at org.springframework.web.filter.OncePerRequestFilter.<span class="title">doFilter</span><span class="params">(OncePerRequestFilter.java:<span class="number">119</span>)</span> ~[spring-web-5.2.1.RELEASE.jar:5.2.1.RELEASE]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.ApplicationFilterChain.<span class="title">internalDoFilter</span><span class="params">(ApplicationFilterChain.java:<span class="number">193</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.ApplicationFilterChain.<span class="title">doFilter</span><span class="params">(ApplicationFilterChain.java:<span class="number">166</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.StandardWrapperValve.<span class="title">invoke</span><span class="params">(StandardWrapperValve.java:<span class="number">202</span>)</span> ~[tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.StandardContextValve.<span class="title">invoke</span><span class="params">(StandardContextValve.java:<span class="number">96</span>)</span> [tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.authenticator.AuthenticatorBase.<span class="title">invoke</span><span class="params">(AuthenticatorBase.java:<span class="number">526</span>)</span> [tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.StandardHostValve.<span class="title">invoke</span><span class="params">(StandardHostValve.java:<span class="number">139</span>)</span> [tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.valves.ErrorReportValve.<span class="title">invoke</span><span class="params">(ErrorReportValve.java:<span class="number">92</span>)</span> [tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.core.StandardEngineValve.<span class="title">invoke</span><span class="params">(StandardEngineValve.java:<span class="number">74</span>)</span> [tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.catalina.connector.CoyoteAdapter.<span class="title">service</span><span class="params">(CoyoteAdapter.java:<span class="number">343</span>)</span> [tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.coyote.http11.Http11Processor.<span class="title">service</span><span class="params">(Http11Processor.java:<span class="number">408</span>)</span> [tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.coyote.AbstractProcessorLight.<span class="title">process</span><span class="params">(AbstractProcessorLight.java:<span class="number">66</span>)</span> [tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.coyote.AbstractProtocol$ConnectionHandler.<span class="title">process</span><span class="params">(AbstractProtocol.java:<span class="number">861</span>)</span> [tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.<span class="title">doRun</span><span class="params">(NioEndpoint.java:<span class="number">1579</span>)</span> [tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at org.apache.tomcat.util.net.SocketProcessorBase.<span class="title">run</span><span class="params">(SocketProcessorBase.java:<span class="number">49</span>)</span> [tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at java.util.concurrent.ThreadPoolExecutor.<span class="title">runWorker</span><span class="params">(ThreadPoolExecutor.java:<span class="number">1149</span>)</span> [na:1.8.0_181]</span></span><br><span class="line"><span class="function">	at java.util.concurrent.ThreadPoolExecutor$Worker.<span class="title">run</span><span class="params">(ThreadPoolExecutor.java:<span class="number">624</span>)</span> [na:1.8.0_181]</span></span><br><span class="line"><span class="function">	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.<span class="title">run</span><span class="params">(TaskThread.java:<span class="number">61</span>)</span> [tomcat-embed-core-9.0.27.jar:9.0.27]</span></span><br><span class="line"><span class="function">	at java.lang.Thread.<span class="title">run</span><span class="params">(Thread.java:<span class="number">748</span>)</span> [na:1.8.0_181]</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>错误原因1</strong>：<ul>
+<li>shiro-redis依赖的版本过低，一般都是3.1.0，因为网上的教程全都是3.1.0版本的，在现在的Springboot版本下会报这样的错误。</li>
+<li><strong>解决方法</strong>：</li>
+<li>将版本更换为3.2.3版本即可</li>
+</ul>
+</li>
+<li><strong>错误原因2</strong>：<ul>
+<li>将版本更换完之后依旧无法解决错误，是因为信息认证的实体中需要id的getter信息，但是如果你使用了mybatis来连接数据库，而不是像网上一样直接在后台造数据，它并不能取到相应的id，所以要在redisCacheManager中设置取到的id</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    CacheManager</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisCacheManager <span class="title">redisCacheManager</span><span class="params">()</span></span>&#123;</span><br><span class="line">        RedisCacheManager redisCacheManager = <span class="keyword">new</span> RedisCacheManager();</span><br><span class="line">        redisCacheManager.setRedisManager(redisManager());</span><br><span class="line">        redisCacheManager.setPrincipalIdFieldName(<span class="string">"userId"</span>);</span><br><span class="line">        <span class="keyword">return</span> redisCacheManager;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.设置RedisManager时无法设置相应的redis数据库信息<ul>
+<li><strong>解决方法</strong></li>
+<li>没有在配置类之前引入yml配置文件中的相关信息，引入即可</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Value</span>(<span class="string">"$&#123;spring.redis.host&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String host;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.redis.port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> port;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.redis.password:&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.redis.timeout&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> timeout;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.redis.database:0&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> database;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3.redis缓存没有加载进redis数据库<ul>
+<li><strong>解决方法</strong></li>
+<li>在启动类上加上注解@EnableCaching</li>
+</ul>
+</li>
+</ul>
+<h4 id="8-总结"><a href="#8-总结" class="headerlink" title="8.总结"></a>8.总结</h4><ul>
+<li>到这里关于Springboot项目的所有相关知识基本已经介绍完毕了，除了md5加密，因为暂时用不到，所以这个只是暂时搁置。两篇总结文档基本可以帮助你打出一个完成度相当高的springboot项目，自己也提高了不少。</li>
+<li>Stay Hungry!Stay Foolish!</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/jokerboozp.github.io/images/wechat.jpg" alt="慢慢变好的程序张 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/jokerboozp.github.io/images/alipay.jpg" alt="慢慢变好的程序张 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jokerboozp.github.io/2019/11/14/2019-11-14-%E7%BD%91%E4%B8%8A%E5%95%86%E5%9F%8E/" rel="prev" title="SpringBoot项目问题">
+      <i class="fa fa-chevron-left"></i> SpringBoot项目问题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jokerboozp.github.io/2019/11/26/2019-11-26-Thymeleaf/" rel="next" title="Springboot-thymeleaf">
+      Springboot-thymeleaf <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81MDM1MS8yNjg0MQ=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本篇博客较长，所以在头部先声明一下会讲到的内容"><span class="nav-text">本篇博客较长，所以在头部先声明一下会讲到的内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#首先把使用的工具的版本信息列出"><span class="nav-text">首先把使用的工具的版本信息列出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最终项目目录"><span class="nav-text">最终项目目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最终结果展示"><span class="nav-text">最终结果展示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Springboot项目中利用Shiro实现详细的权限认证"><span class="nav-text">1.Springboot项目中利用Shiro实现详细的权限认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Springboot引入前端的shiro标签"><span class="nav-text">2.Springboot引入前端的shiro标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Springboot项目中Shiro基于yml来动态配置权限"><span class="nav-text">3.Springboot项目中Shiro基于yml来动态配置权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Springboot项目中使用shiro-redis缓存"><span class="nav-text">4.Springboot项目中使用shiro-redis缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Springboot项目中使用Shiro实现RememberMe（记住我）功能"><span class="nav-text">5.Springboot项目中使用Shiro实现RememberMe（记住我）功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Springboot项目中使用Shiro来集成Kaptcha验证码"><span class="nav-text">6.Springboot项目中使用Shiro来集成Kaptcha验证码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-项目构建过程中遇到的错误"><span class="nav-text">7.项目构建过程中遇到的错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-总结"><span class="nav-text">8.总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="慢慢变好的程序张"
+      src="/jokerboozp.github.io/images/1.jpg">
+  <p class="site-author-name" itemprop="name">慢慢变好的程序张</p>
+  <div class="site-description" itemprop="description">一个想要成为全栈工程师的运维开发毕业生</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jokerboozp.github.io/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jokerboozp.github.io/categories/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jokerboozp" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jokerboozp" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jokerboozp.github.io/15239593182@163.com" title="邮箱 → 15239593182@163.com"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/5316905070/profile?topnav=1&wvr=6&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;5316905070&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">慢慢变好的程序张</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">414k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:17</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/jokerboozp.github.io/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/jokerboozp.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/jokerboozp.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jokerboozp.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jokerboozp.github.io/js/utils.js"></script>
+
+<script src="/jokerboozp.github.io/js/motion.js"></script>
+
+
+<script src="/jokerboozp.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jokerboozp.github.io/js/next-boot.js"></script>
+
+<script src="/jokerboozp.github.io/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jokerboozp.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/g8wjrwp9mirlm2gaklcohrcf9lcuzbbd.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jokerboozp.github.io/images/bitbug_favicon32.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jokerboozp.github.io/images/bitbug_favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jokerboozp.github.io/images/bitbug_favicon16.ico">
+  <link rel="mask-icon" href="/jokerboozp.github.io/images/bitbug_favicon32.ico" color="#222">
+
+<link rel="stylesheet" href="/jokerboozp.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jokerboozp.github.io/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jokerboozp.top","root":"/jokerboozp.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="一个想要成为全栈工程师的运维开发毕业生">
+<meta property="og:type" content="website">
+<meta property="og:title" content="慢慢变好的程序张">
+<meta property="og:url" content="http://jokerboozp.top/page/6/index.html">
+<meta property="og:site_name" content="慢慢变好的程序张">
+<meta property="og:description" content="一个想要成为全栈工程师的运维开发毕业生">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="慢慢变好的程序张">
+<meta property="article:tag" content="Java;Spring;SpringCloud;区块链;Dubbo;Vue;算法;Gradle;Shiro;Mysql;Oracle;SpringBoot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://jokerboozp.top/page/6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>慢慢变好的程序张</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?54437ed9f92906a9d0370f8085d314b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/jokerboozp.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">慢慢变好的程序张</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry.Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jokerboozp.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jokerboozp.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/jokerboozp.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/10/2019-09-10-Java%E5%9F%BA%E7%A1%80-%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/09/10/2019-09-10-Java%E5%9F%BA%E7%A1%80-%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Java基础0910生产消费</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-10T00:00:00+08:00">2019-09-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 13:41:27" itemprop="dateModified" datetime="2020-06-17T13:41:27+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">总结</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h3 id="生产者消费者问题"><a href="#生产者消费者问题" class="headerlink" title="生产者消费者问题"></a>生产者消费者问题</h3><ul>
+<li><p>生产者和消费者在同一时间段内共用同一个存储空间，生产者向空间内存放数据，消费者却取用数据。如果不加协调的话会出现以下情况：</p>
+<ul>
+<li>存储空间已满，而生产者一直占用着它，消费者等着生产者让出空间从而去除产品，生产者等着消费者消费产品，从而向空间中添加产品。两者互相等待，从而发生死锁。</li>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-10%20114712.png" alt="生产者消费者示意图"></li>
+</ul>
+</li>
+<li><p>例子：向筐子中放馒头，师傅生产，用户消费
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/09/10/2019-09-10-Java%E5%9F%BA%E7%A1%80-%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/07/2019-09-07-Java%E5%9F%BA%E7%A1%80-%E7%BA%BF%E7%A8%8B%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/09/07/2019-09-07-Java%E5%9F%BA%E7%A1%80-%E7%BA%BF%E7%A8%8B%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Java基础0907总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-07T00:00:00+08:00">2019-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 13:41:10" itemprop="dateModified" datetime="2020-06-17T13:41:10+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">总结</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>212</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h3 id="线程总结"><a href="#线程总结" class="headerlink" title="线程总结"></a>线程总结</h3><h4 id="wait和sleep的区别"><a href="#wait和sleep的区别" class="headerlink" title="wait和sleep的区别"></a>wait和sleep的区别</h4><p>1.wait是object类的方法，sleep是thread类的方法<br>2.wait时别的线程可以访问锁定对象；sleep时别的线程不可以访问锁定对象。调用wait方法时必须锁定该对象。</p>
+<h4 id="线程、进程的概念"><a href="#线程、进程的概念" class="headerlink" title="线程、进程的概念"></a>线程、进程的概念</h4><h4 id="创建和启动线程的方式"><a href="#创建和启动线程的方式" class="headerlink" title="创建和启动线程的方式"></a>创建和启动线程的方式</h4><p>1.从thread类继承，重写run方法
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/09/07/2019-09-07-Java%E5%9F%BA%E7%A1%80-%E7%BA%BF%E7%A8%8B%E6%80%BB%E7%BB%93/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/06/2019-09-06-Java%E5%9F%BA%E7%A1%80-%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/09/06/2019-09-06-Java%E5%9F%BA%E7%A1%80-%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/" class="post-title-link" itemprop="url">Java基础0906</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-06T00:00:00+08:00">2019-09-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 13:40:57" itemprop="dateModified" datetime="2020-06-17T13:40:57+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h3 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h3><ul>
+<li>多个线程之间进行协调的方法叫做线程同步</li>
+<li>在Java语言中，引入了对象互斥锁的概念，保证共享数据操作的完整性。每个对象对应于一个可称为“互斥锁”的标记，这个标记保证在任一时刻，只能有一个线程访问该对象</li>
+<li>关键字synchronized来与对象的互斥锁联系。当某个对象synchronized修饰时，表明该对象在任一时刻只能由一个线程访问。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/09/06/2019-09-06-Java%E5%9F%BA%E7%A1%80-%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/05/2019-09-05-Java%E5%9F%BA%E7%A1%80-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/09/05/2019-09-05-Java%E5%9F%BA%E7%A1%80-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">Java基础0905</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-05 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-05T00:00:00+08:00">2019-09-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 13:40:48" itemprop="dateModified" datetime="2020-06-17T13:40:48+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h2 id="Java多线程机制"><a href="#Java多线程机制" class="headerlink" title="Java多线程机制"></a>Java多线程机制</h2><h3 id="线程的基本概念"><a href="#线程的基本概念" class="headerlink" title="线程的基本概念"></a>线程的基本概念</h3><ul>
+<li>线程是一个程序内部的顺序控制流</li>
+<li>Java中的线程是通过java.lang.Thread类来实现的</li>
+<li>VM启动时会有一个由主方法所定义的线程（public static void main(){}）</li>
+<li>可以通过创建Thread的实例来创建新的线程</li>
+<li>每个线程都是通过某个特定的Thread对象所对应的方法run()来完成其操作的，方法run()称为线程体</li>
+<li>通过调用Thread类的start()方法来启动一个线程</li>
+</ul>
+<h3 id="线程和进程的区别"><a href="#线程和进程的区别" class="headerlink" title="线程和进程的区别"></a>线程和进程的区别</h3><ul>
+<li>每一个进程都有独立的代码
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/09/05/2019-09-05-Java%E5%9F%BA%E7%A1%80-%E5%A4%9A%E7%BA%BF%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/03/2019-09-03-Shiro-Shiro%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/09/03/2019-09-03-Shiro-Shiro%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">Shiro基础</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-03T00:00:00+08:00">2019-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 10:49:13" itemprop="dateModified" datetime="2020-06-17T10:49:13+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/Shiro/" itemprop="url" rel="index"><span itemprop="name">Shiro</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>583</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Shiro"><a href="#Shiro" class="headerlink" title="Shiro"></a>Shiro</h1><ul>
+<li>Shiro是一个安全（权限）框架</li>
+<li>Shiro可以完成：认证、授权、加密、会话管理、与Web集成、缓存等</li>
+<li>shiro是一个有许多特性的全面的安全框架，下面这幅图可以了解shiro的特性</li>
+</ul>
+<p><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/shiro-1.png" alt="shiro特性"></p>
+<h4 id="shiro架构"><a href="#shiro架构" class="headerlink" title="shiro架构"></a>shiro架构
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/09/03/2019-09-03-Shiro-Shiro%E7%AE%80%E4%BB%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/03/2019-09-03-Java%E5%9F%BA%E7%A1%80-%E6%B5%81%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/09/03/2019-09-03-Java%E5%9F%BA%E7%A1%80-%E6%B5%81%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Java基础0903总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-03T00:00:00+08:00">2019-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 10:49:06" itemprop="dateModified" datetime="2020-06-17T10:49:06+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">总结</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>337</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h4 id="流总结"><a href="#流总结" class="headerlink" title="流总结"></a>流总结</h4><ul>
+<li>InputStream/OutputStream</li>
+<li>Reader/Writer</li>
+<li>FileInputStream/FileOutputStream</li>
+<li>FileReader/FileWriter
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/09/03/2019-09-03-Java%E5%9F%BA%E7%A1%80-%E6%B5%81%E6%80%BB%E7%BB%93/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/03/2019-09-03-Java%E5%9F%BA%E7%A1%80-%E5%A4%84%E7%90%86%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/09/03/2019-09-03-Java%E5%9F%BA%E7%A1%80-%E5%A4%84%E7%90%86%E6%B5%81/" class="post-title-link" itemprop="url">Java基础0903</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-03T00:00:00+08:00">2019-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 10:48:58" itemprop="dateModified" datetime="2020-06-17T10:48:58+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h2 id="处理流"><a href="#处理流" class="headerlink" title="处理流"></a>处理流</h2><p><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-03%20084141.png" alt="处理流类别"></p>
+<h3 id="缓冲流"><a href="#缓冲流" class="headerlink" title="缓冲流"></a>缓冲流</h3><ul>
+<li>缓冲流要“套接”在相应的节点流之上，对读写的数据提供了缓冲的功能，提高了读写的效率，同时增加了一些新的方法</li>
+<li>JDK提供了四种缓存流，其常用的构造方法为：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">BufferedReader(Reader in)</span><br><span class="line">BufferedReader(Reader in,<span class="keyword">int</span> sz)<span class="comment">//sz为自定义缓存区大小</span></span><br><span class="line">BufferedWriter(Writer out)</span><br><span class="line">BufferedWriter(Writer out,<span class="keyword">int</span> sz)</span><br><span class="line">BufferedInputStream(InputStream in)</span><br><span class="line">BufferedInputStream(InputStream in,<span class="keyword">int</span> size)</span><br><span class="line">BufferedOutputStream(OutputStream out)</span><br><span class="line">BufferedOutputStream(OutputStream out,<span class="keyword">int</span> size)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>缓冲输入流支持其父类的mark和reset方法
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/09/03/2019-09-03-Java%E5%9F%BA%E7%A1%80-%E5%A4%84%E7%90%86%E6%B5%81/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/02/2019-09-02-Oracle-%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88sql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/09/02/2019-09-02-Oracle-%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88sql/" class="post-title-link" itemprop="url">Oracle编写高效sql</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-02 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-02T00:00:00+08:00">2019-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 10:48:50" itemprop="dateModified" datetime="2020-06-17T10:48:50+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/Oracle/" itemprop="url" rel="index"><span itemprop="name">Oracle</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="编写高效SQL"><a href="#编写高效SQL" class="headerlink" title="编写高效SQL"></a>编写高效SQL</h4><p>1.选择最有效率的表名顺序（只在基于规则的优化器中有效）</p>
+<ul>
+<li>Oracle的解析器按照从右到左的顺序处理FROM子句中的表名，FROM子句中写在最后的表（基础表driving table）将被最先处理，在FROM子句中包含多个表的情况下，你必须选择记录条数最少的表最为基础表。假如有三个以上的表连接查询，那就需要选择交叉表（intersection table）作为基础表，交叉表是指那个被其他表引用的表</li>
+</ul>
+<p>2.WHERE子句中的连接顺序
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/09/02/2019-09-02-Oracle-%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88sql/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/02/2019-09-02-Java%E5%9F%BA%E7%A1%80-IO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/09/02/2019-09-02-Java%E5%9F%BA%E7%A1%80-IO/" class="post-title-link" itemprop="url">Java基础0902</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-02 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-02T00:00:00+08:00">2019-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 10:48:42" itemprop="dateModified" datetime="2020-06-17T10:48:42+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><h3 id="输入-输出流的分类"><a href="#输入-输出流的分类" class="headerlink" title="输入/输出流的分类"></a>输入/输出流的分类</h3><ul>
+<li><p>java.io包中定义了多个流类型（类或抽象类）来实现输入/输出功能；可以从不同角度对其进行分类</p>
+<ul>
+<li>按数据流的方向不同可分为输入流和输出流</li>
+<li>按照处理数据单位不同可分为字节流和字符流</li>
+<li>按照功能不同可分为节点流和处理流</li>
+</ul>
+</li>
+<li><p>JDK所提供的所有流类型都位于包java.io内，都分别继承自以下四种抽象流类型</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">名称</th>
+<th align="center">字节流</th>
+<th align="right">字符流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">输入流</td>
+<td align="center">InputStream</td>
+<td align="right">Reader</td>
+</tr>
+<tr>
+<td align="center">输出流</td>
+<td align="center">OutputStream</td>
+<td align="right">Writer</td>
+</tr>
+</tbody></table>
+<h3 id="节点流和处理流"><a href="#节点流和处理流" class="headerlink" title="节点流和处理流"></a>节点流和处理流</h3><ul>
+<li>节点流为可以从一个特定的数据源（节点）读取数据</li>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20112101.png" alt="节点流"></li>
+<li>处理流是“连接”在已存在的流（节点流或处理流）之上，通过对数据的处理为程序提供更为强大的读写能力</li>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20112114.png" alt="处理流"><h4 id="InputStream"><a href="#InputStream" class="headerlink" title="InputStream"></a>InputStream</h4><ul>
+<li>继承自InputStream的流都是用于向程序中输入数据，且数据的单位为字节（8bit）；下图深色为节点流，浅色为处理流<ul>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20113037.png" alt="分类"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="InputStream的基本方法"><a href="#InputStream的基本方法" class="headerlink" title="InputStream的基本方法"></a>InputStream的基本方法</h4><ul>
+<li><code>int read() throws IOException</code>//读取一个字节并以整数的形式返回(0~255)，如果返回-1代表已到输出流的末尾</li>
+<li><code>int read(byte[] buffer) throws IOException</code>//读取一系列字节并存储到一个数组buffer，返回实际读取的字节数，如果读取前已到输入流的末尾返回-1</li>
+<li><code>int read(byte[] buffer,int offset,int length) throws IOException</code>//读取length个字节，并存储到一个字节数组buffer，从length位置开始。返回实际控制的字节数，如果读取前已到输入流的末尾返回-1</li>
+<li><code>void colse() throws IOException</code>//关闭流释放内存资源</li>
+<li><code>long skip(long n) throws IOException</code>//跳过n个字节不读，返回实际跳过的字节数</li>
+</ul>
+<h4 id="OutputStream"><a href="#OutputStream" class="headerlink" title="OutputStream"></a>OutputStream</h4><ul>
+<li>继承自OutputStream的流是用于程序中输入数据，且数据的单位为字节（8bit）；下图深色为节点流，浅色为处理流<ul>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20134236.png" alt="OutputStream"></li>
+</ul>
+</li>
+</ul>
+<h4 id="OutputStream的基本方法"><a href="#OutputStream的基本方法" class="headerlink" title="OutputStream的基本方法"></a>OutputStream的基本方法</h4><ul>
+<li><code>void write(int b) throws IOException</code>//向输出流中写入一个字节数据，该字节数据为参数b的低8位</li>
+<li><code>void write(byte[] b) throws IOException</code>//将一个字节类型数据中的数组中的数据写入输出流</li>
+<li><code>void write(byte[] b,int off,int len) throws IOException</code>//将一个字节类型的数组中的数据从指定位置（off）开始的len个字节写入到输出流中</li>
+<li><code>void colse() throws IOException</code>//关闭流释放内存资源</li>
+<li><code>void flus() throws IOException</code>//将输出流中缓冲的数据全部写出到目的地</li>
+</ul>
+<h4 id="Reader"><a href="#Reader" class="headerlink" title="Reader"></a>Reader</h4><ul>
+<li>继承自Reader的流都是用于向程序中输入数据，且数据的单位为字符（16bit）；下图中深色为节点流，浅色的为处理流。<ul>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20135952.png" alt="reader"></li>
+</ul>
+</li>
+</ul>
+<h4 id="Reader的基本方法"><a href="#Reader的基本方法" class="headerlink" title="Reader的基本方法"></a>Reader的基本方法</h4><ul>
+<li><code>int read() throws IOException</code>//读取一个字符并以整数的形式返回(0~255)，如果返回-1代表已到输出流的末尾</li>
+<li><code>int read(byte[] buffer) throws IOException</code>//读取一系列字符并存储到一个数组buffer，返回实际读取的字节数，如果读取前已到输入流的末尾返回-1</li>
+<li><code>int read(byte[] buffer,int offset,int length) throws IOException</code>//读取length个字符，并存储到一个数组buffer，从length位置开始。返回实际读取的字符数，如果读取前已到输入流的末尾返回-1</li>
+<li><code>void colse() throws IOException</code>//关闭流释放内存资源</li>
+<li><code>long skip(long n) throws IOException</code>//跳过n个字符不读，返回实际跳过的字符数</li>
+</ul>
+<h4 id="Writer"><a href="#Writer" class="headerlink" title="Writer"></a>Writer</h4><ul>
+<li>继承自Writer的流都是用于程序中输出数据，且数据的单位为字符（16bit）；下图深色的为节点流，浅色的为处理流</li>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20141104.png" alt="Writer"></li>
+</ul>
+<h4 id="Writer的基本方法"><a href="#Writer的基本方法" class="headerlink" title="Writer的基本方法"></a>Writer的基本方法</h4><ul>
+<li><code>void write(int b) throws IOException</code>//向输出流中写入一个字符数据，该字符数据为参数b的低16位</li>
+<li><code>void write(byte[] b) throws IOException</code>//将一个字符类型数据中的数组中的数据写入输出流</li>
+<li><code>void write(byte[] cbuf,int offset,int length) throws IOException</code>//将一个字符类型的数组中的数据从指定位置（offset）开始的lenth个字符写入到输出流中</li>
+<li><code>void write(String string) throws IOException</code>//将一个字符串中的字符写入到输出流</li>
+<li><code>void colse() throws IOException</code>//关闭流释放内存资源</li>
+<li><code>void flus() throws IOException</code>//将输出流中缓冲的数据全部写出到目的地</li>
+</ul>
+<h4 id="节点流类型"><a href="#节点流类型" class="headerlink" title="节点流类型"></a>节点流类型</h4><p><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20142038.png" alt="节点流类型"></p>
+<ul>
+<li>例1：</li>
+<li>文件的读取</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestFileInputStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> b=<span class="number">0</span>;</span><br><span class="line">        FileInputStream in=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            in =<span class="keyword">new</span> FileInputStream(<span class="string">"E:\\test\\Animal.java"</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(FileNotFoundException e)&#123;</span><br><span class="line">            System.out.println(<span class="string">"找不到指定文件"</span>);</span><br><span class="line">            System.exit(-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="keyword">long</span> num=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>((b=in.read())!=-<span class="number">1</span>)&#123;</span><br><span class="line">                System.out.print((<span class="keyword">char</span>)b);</span><br><span class="line">                num++;</span><br><span class="line">            &#125;</span><br><span class="line">            in.close();</span><br><span class="line">            System.out.println();</span><br><span class="line">            System.out.println(<span class="string">"共读取了"</span>+num+<span class="string">"个字节"</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException el)&#123;</span><br><span class="line">            System.out.println(<span class="string">"文件读取错误"</span>);</span><br><span class="line">            System.exit(-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>例2：
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/09/02/2019-09-02-Java%E5%9F%BA%E7%A1%80-IO/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/01/2019-09-01-Java%E5%9F%BA%E7%A1%80-%E5%AE%B9%E5%99%A8%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/09/01/2019-09-01-Java%E5%9F%BA%E7%A1%80-%E5%AE%B9%E5%99%A8%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Java基础0901总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-01T00:00:00+08:00">2019-09-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 10:48:28" itemprop="dateModified" datetime="2020-06-17T10:48:28+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">总结</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>112</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h4 id="容器总结"><a href="#容器总结" class="headerlink" title="容器总结"></a>容器总结</h4><ul>
+<li>1136<ul>
+<li>一个图<ul>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-08-31%20093107.png" alt="Aaron Swartz"></li>
+</ul>
+</li>
+<li>一个类<ul>
+<li>Collections</li>
+</ul>
+</li>
+<li>三个知识点<ul>
+<li>For
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/09/01/2019-09-01-Java%E5%9F%BA%E7%A1%80-%E5%AE%B9%E5%99%A8%E6%80%BB%E7%BB%93/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/jokerboozp.github.io/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/jokerboozp.github.io/">1</a><span class="space">&hellip;</span><a class="page-number" href="/jokerboozp.github.io/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/jokerboozp.github.io/page/7/">7</a><a class="extend next" rel="next" href="/jokerboozp.github.io/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="慢慢变好的程序张"
+      src="/jokerboozp.github.io/images/1.jpg">
+  <p class="site-author-name" itemprop="name">慢慢变好的程序张</p>
+  <div class="site-description" itemprop="description">一个想要成为全栈工程师的运维开发毕业生</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jokerboozp.github.io/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jokerboozp.github.io/categories/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jokerboozp" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jokerboozp" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jokerboozp.github.io/15239593182@163.com" title="邮箱 → 15239593182@163.com"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/5316905070/profile?topnav=1&wvr=6&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;5316905070&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">慢慢变好的程序张</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">414k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:17</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/jokerboozp.github.io/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/jokerboozp.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/jokerboozp.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jokerboozp.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jokerboozp.github.io/js/utils.js"></script>
+
+<script src="/jokerboozp.github.io/js/motion.js"></script>
+
+
+<script src="/jokerboozp.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jokerboozp.github.io/js/next-boot.js"></script>
+
+<script src="/jokerboozp.github.io/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jokerboozp.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/g8wjrwp9mirlm2gaklcohrcf9lcuzbbd.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

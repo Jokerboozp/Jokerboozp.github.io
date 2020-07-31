@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jokerboozp.github.io/images/bitbug_favicon32.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jokerboozp.github.io/images/bitbug_favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jokerboozp.github.io/images/bitbug_favicon16.ico">
+  <link rel="mask-icon" href="/jokerboozp.github.io/images/bitbug_favicon32.ico" color="#222">
+
+<link rel="stylesheet" href="/jokerboozp.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jokerboozp.github.io/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jokerboozp.top","root":"/jokerboozp.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="Oracle内置函数 单记录字符函数INSTR(,[,[,]]) 在一个字符串中搜索指定的字符，返回发现指定的字符的位置 c1：被搜索的字符串 c2：希望搜索的字符串 l：搜索的开始位置，缺省是1 j：第j次出现，缺省是1 SELECT INSTR(&#39;Oracle Training&#39;,&#39;ra&#39;,1,2) &quot;Instring&quot; FORM DUAL;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle内置函数">
+<meta property="og:url" content="http://jokerboozp.top/2019/08/29/2019-08-29-Oracle%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="慢慢变好的程序张">
+<meta property="og:description" content="Oracle内置函数 单记录字符函数INSTR(,[,[,]]) 在一个字符串中搜索指定的字符，返回发现指定的字符的位置 c1：被搜索的字符串 c2：希望搜索的字符串 l：搜索的开始位置，缺省是1 j：第j次出现，缺省是1 SELECT INSTR(&#39;Oracle Training&#39;,&#39;ra&#39;,1,2) &quot;Instring&quot; FORM DUAL;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-17T02:47:09.262Z">
+<meta property="article:author" content="慢慢变好的程序张">
+<meta property="article:tag" content="Java;Spring;SpringCloud;区块链;Dubbo;Vue;算法;Gradle;Shiro;Mysql;Oracle;SpringBoot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://jokerboozp.top/2019/08/29/2019-08-29-Oracle%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Oracle内置函数 | 慢慢变好的程序张</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?54437ed9f92906a9d0370f8085d314b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/jokerboozp.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">慢慢变好的程序张</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry.Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jokerboozp.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jokerboozp.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/jokerboozp.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/08/29/2019-08-29-Oracle%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Oracle内置函数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-29T00:00:00+08:00">2019-08-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 10:47:09" itemprop="dateModified" datetime="2020-06-17T10:47:09+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/Oracle/" itemprop="url" rel="index"><span itemprop="name">Oracle</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Oracle内置函数"><a href="#Oracle内置函数" class="headerlink" title="Oracle内置函数"></a>Oracle内置函数</h1><hr>
+<h3 id="单记录字符函数"><a href="#单记录字符函数" class="headerlink" title="单记录字符函数"></a>单记录字符函数</h3><h4 id="INSTR"><a href="#INSTR" class="headerlink" title="INSTR(,[,[,]])"></a>INSTR(<c1>,<c2>[,<l>[,<j>]])</h4><ul>
+<li>在一个字符串中搜索指定的字符，返回发现指定的字符的位置</li>
+<li>c1：被搜索的字符串</li>
+<li>c2：希望搜索的字符串</li>
+<li>l：搜索的开始位置，缺省是1</li>
+<li>j：第j次出现，缺省是1</li>
+<li><code>SELECT INSTR(&#39;Oracle Training&#39;,&#39;ra&#39;,1,2) &quot;Instring&quot; FORM DUAL;</code></li>
+</ul>
+<h4 id="LENGTH"><a href="#LENGTH" class="headerlink" title="LENGTH()"></a>LENGTH(<c>)</h4><ul>
+<li>返回字符串c的长度<a id="more"></a></li>
+<li><code>SELECT LENGTH(&#39;Oracle Training&#39;) FROM DUAL;</code></li>
+</ul>
+<h4 id="LOWER"><a href="#LOWER" class="headerlink" title="LOWER()"></a>LOWER(<c>)</h4><ul>
+<li>返回字符串并将所有字符变为小写</li>
+<li><code>SELECT LOWER (&#39;Oracle Training&#39;) FROM DUAL;</code></li>
+</ul>
+<h4 id="UPPER"><a href="#UPPER" class="headerlink" title="UPPER()"></a>UPPER(<c>)</h4><ul>
+<li>返回所有字符串并将所有字符转换为大写</li>
+<li><code>SELECT UPPER(&#39;Oracle Training&#39;) FORM DUAL;</code></li>
+</ul>
+<h4 id="LAPD-String1，Length-String2"><a href="#LAPD-String1，Length-String2" class="headerlink" title="LAPD(String1，Length[,String2])"></a>LAPD(String1，Length[,String2])</h4><ul>
+<li>在字符串Stirng1的左边填充字符串String2，填充后的长度为Length。String2的参数可选，若String2的参数不填，则在String1的左侧补空格</li>
+<li><code>SELECT LAPD (&#39;abcde&#39;,10,&#39;x&#39;) FROM DUAL;</code>——结果为xxxxxabcde</li>
+</ul>
+<h4 id="RPAD-String1-Length-String2"><a href="#RPAD-String1-Length-String2" class="headerlink" title="RPAD(String1,Length[,String2])"></a>RPAD(String1,Length[,String2])</h4><ul>
+<li>在字符串String1的右边填充字符串String2，填充后的长度为Length，String2的参数可选，若String2参数不填，则在String1的右侧补空格</li>
+<li><code>SELECT RPAD(&#39;abcde&#39;,10,x) FROM DUAL;</code>——结果为abcdexxxxx</li>
+</ul>
+<h4 id="LTRIM-String1-String2"><a href="#LTRIM-String1-String2" class="headerlink" title="LTRIM(String1 [,String2])"></a>LTRIM(String1 [,String2])</h4><ul>
+<li>删除String1左边出现的任何String2字符，保证String1的第一个字符不能出现在String2字符串中。String2的参数可选，不String2不填，则将String1的左侧所有空白字符去掉。</li>
+<li><code>SELECT LTRIM(&#39;MISS LIU&#39;,&#39;M IS&#39;) RESULT FROM DUAL;</code>——结果为LIU</li>
+</ul>
+<h4 id="RTRIM-String1-String2"><a href="#RTRIM-String1-String2" class="headerlink" title="RTRIM(String1[,String2])"></a>RTRIM(String1[,String2])</h4><ul>
+<li>删除String1右边出现的任何String2字符，保证String1的最后一个字符不能出现在String2字符串中。String2的参数可选，若String2的参数不填，则将String1的右侧所有空格删去</li>
+<li><code>SELECT RTRIM(&#39;Mississippi&#39;,&#39;ip&#39;) test,RTRIM(&#39;Mississippi&#39;,&#39;sip&#39;) test2 FROM DUAL;</code>——结果为test1：Mississ     test2：M</li>
+</ul>
+<h4 id="Substr-String-start-Count"><a href="#Substr-String-start-Count" class="headerlink" title="Substr(String,start[,Count])"></a>Substr(String,start[,Count])</h4><ul>
+<li>对字符串或（字段），从start字符开始，连续取count个字符并返回结果，如果没有指定count则一只取到结尾</li>
+<li><code>SELECT substr(&#39;Miss Lis Mis&#39;,6,3) RESULT FROM DUAL;</code>——结果为Lis</li>
+</ul>
+<h4 id="Replace-‘String1’-’String2’-’Stirng3’"><a href="#Replace-‘String1’-’String2’-’Stirng3’" class="headerlink" title="Replace(‘String1’[,’String2’,’Stirng3’])"></a>Replace(‘String1’[,’String2’,’Stirng3’])</h4><ul>
+<li>String1：希望被替换的字符串或变量</li>
+<li>String2：被替换字符串</li>
+<li>String3：要替换字符串</li>
+<li><code>SELECT REPLACE(&#39;Oracle&#39;,&#39;Or&#39;,&#39;Mir&#39;) &quot;Example&quot; FORM DUAL;</code>——结果为Miracle</li>
+</ul>
+<h4 id="CEIL"><a href="#CEIL" class="headerlink" title="CEIL()"></a>CEIL(<n>)</h4><ul>
+<li>返回大于或等于给出数字的最小整数，即向上取整</li>
+<li><code>SELECT CEIL(3.141598) FROM DUAL;</code>——结果为4</li>
+</ul>
+<h4 id="FLOOR"><a href="#FLOOR" class="headerlink" title="FLOOR()"></a>FLOOR(<n>)</h4><ul>
+<li>返回小于或等于给出数字的最大整数，即向下取整</li>
+<li><code>SELECT FLOOR(3.141598) FROM DUAL;</code>———结果为3</li>
+</ul>
+<h4 id="MOD"><a href="#MOD" class="headerlink" title="MOD(,)"></a>MOD(<n1>,<n2>)</h4><ul>
+<li>返回整数n1除以n2之后的余数</li>
+<li><code>SELECT MOD(10,3)FORM DUAL;</code>——结果为1</li>
+</ul>
+<h4 id="ROUND-VALUE-PRECISION"><a href="#ROUND-VALUE-PRECISION" class="headerlink" title="ROUND(VALUE,PRECISION)"></a>ROUND(VALUE,PRECISION)</h4><ul>
+<li>按照precision指定的精度对value进行四舍五入</li>
+<li><code>SELECT ROUND(3.14159,2)FROM DUAL;</code>——结果为3.14</li>
+</ul>
+<hr>
+<h3 id="单记录日期函数"><a href="#单记录日期函数" class="headerlink" title="单记录日期函数"></a>单记录日期函数</h3><h4 id="ADD-MONTHS"><a href="#ADD-MONTHS" class="headerlink" title="ADD_MONTHS(,)"></a>ADD_MONTHS(<d>,<l>)</h4><ul>
+<li>增加月份或减去月份，在d日期的基础上，增加l（l可为负数）个月之后的时间</li>
+<li><code>SELECT to_char(add_months(to_date(&#39;2019-01-01&#39;,&#39;yyyy-mm-dd&#39;),2),&#39;yyyy-mm-dd&#39;) from dual;</code>——结果为2019-03-01</li>
+<li><code>SELECT to_cahr(add_month(to_date(&#39;2019-03-01&#39;,&#39;yyyy-mm-dd&#39;),-2),&#39;yyyy-mm-dd&#39;)from dual;</code>——结果为2019-01-01</li>
+</ul>
+<h4 id="LAST-DAY-date"><a href="#LAST-DAY-date" class="headerlink" title="LAST_DAY(date)"></a>LAST_DAY(date)</h4><ul>
+<li>返回日期date所在月的最后一天</li>
+<li><code>SELECT to_char(last_day(to_date(&#39;2019-02-01&#39;,&#39;yyyy-mm-dd&#39;)),&#39;yyyy-mm-dd&#39;)from dual;</code>——结果为2019-02-28</li>
+</ul>
+<h4 id="MONTHS-BETWEEN-date2-date1"><a href="#MONTHS-BETWEEN-date2-date1" class="headerlink" title="MONTHS_BETWEEN(date2,date1)"></a>MONTHS_BETWEEN(date2,date1)</h4><ul>
+<li>返回date2-date1的月数（可以是小数）</li>
+<li><code>SELECT months_between(to_date(&#39;2014-02-01&#39;,&#39;yyyy-mm-dd&#39;),to_date(&#39;2014-04-01&#39;,&#39;yyyy-mm-dd&#39;))from dual;</code>——结果为2</li>
+</ul>
+<h4 id="SYSDATE"><a href="#SYSDATE" class="headerlink" title="SYSDATE"></a>SYSDATE</h4><ul>
+<li>返回系统的当前时间</li>
+<li><code>SELECT to_cahr(sysdate,&#39;yyyy-mm-dd&#39;)from dual;</code></li>
+</ul>
+<h4 id="TRUNC"><a href="#TRUNC" class="headerlink" title="TRUNC(,[,])"></a>TRUNC(<date>,[,<fmt>])</h4><ul>
+<li>按照给出的fmt要求将日期截断</li>
+<li><code>SELECT to_char(trunc(sysdate,&#39;dd&#39;),&#39;yyyy-mm-dd&#39;)from dual;</code>——结果为2019-08-29</li>
+<li><code>SELECT to_char(trunc(sysdate,&#39;mm&#39;),&#39;yyyy-mm-dd&#39;)from dual;</code>——结果为2019-08-01</li>
+<li><code>SELECT to_char(trunc(sysdate,&#39;yy&#39;),&#39;yyyy-mm-dd&#39;)from dual;</code>——结果为2019-01-01</li>
+</ul>
+<hr>
+<h3 id="单记录转换函数"><a href="#单记录转换函数" class="headerlink" title="单记录转换函数"></a>单记录转换函数</h3><h4 id="TO-CHAR-date-’format’"><a href="#TO-CHAR-date-’format’" class="headerlink" title="TO_CHAR(date,’format’)"></a>TO_CHAR(date,’format’)</h4><ul>
+<li>根据format格式将日期date转换为对象格式的字符串</li>
+</ul>
+<h4 id="TO-CHAR"><a href="#TO-CHAR" class="headerlink" title="TO_CHAR()"></a>TO_CHAR(<n>)</h4><ul>
+<li>将数字n转换为字符串</li>
+</ul>
+<h4 id="TO-NUMBER"><a href="#TO-NUMBER" class="headerlink" title="TO_NUMBER()"></a>TO_NUMBER(<c>)</h4><ul>
+<li>将字符串c转换为数字</li>
+</ul>
+<h4 id="TO-DATE-string-’format’"><a href="#TO-DATE-string-’format’" class="headerlink" title="TO_DATE(string,’format’)"></a>TO_DATE(string,’format’)</h4><ul>
+<li>根据format格式将指定格式的字符串string转换为date类型</li>
+</ul>
+<h3 id="单记录函数小结"><a href="#单记录函数小结" class="headerlink" title="单记录函数小结"></a>单记录函数小结</h3><ul>
+<li>单记录函数可以用在查询结果中</li>
+<li>单记录函数可以用在where条件中</li>
+<li><code>SELECT to_char(emp_birthday,&#39;yyyy-mm-dd&#39;)from emp;</code></li>
+<li><code>SELECT * from whrer emp_birthday &gt;=to_date(&#39;1980-01-01&#39;,&#39;yyyy-mm-dd&#39;) and emp_birthday &lt; to_day(&#39;1990-01-01&#39;,&#39;yyyy-mm-dd&#39;);</code></li>
+</ul>
+<hr>
+<h3 id="组函数"><a href="#组函数" class="headerlink" title="组函数"></a>组函数</h3><h4 id="AVG-DISTINCT-ALL"><a href="#AVG-DISTINCT-ALL" class="headerlink" title="AVG([{DISTINCT|ALL}])"></a>AVG([{DISTINCT|ALL}])</h4><ul>
+<li>求平均值，ALL表示对所有求平均值，DISTINCT只对不同的求平均值，相同只取一个</li>
+</ul>
+<h4 id="MAX-DISTINCT-ALL"><a href="#MAX-DISTINCT-ALL" class="headerlink" title="MAX([{DISTINCT|ALL}])"></a>MAX([{DISTINCT|ALL}])</h4><ul>
+<li>求最大值，ALL表示对所有求最大值，DISTINCT只对不同的求最大值，相同只取一个</li>
+</ul>
+<h4 id="MIN-DISTINCT-ALL"><a href="#MIN-DISTINCT-ALL" class="headerlink" title="MIN([{DISTINCT|ALL}])"></a>MIN([{DISTINCT|ALL}])</h4><ul>
+<li>求最小值，ALL表示对所有求最小值，DISTINCT只对不同的求最小值，相同只取一个</li>
+</ul>
+<hr>
+<h4 id="带group-by的计算"><a href="#带group-by的计算" class="headerlink" title="带group by的计算"></a>带group by的计算</h4><ul>
+<li>可以用group by来实现对一组数进行分组统计</li>
+<li>例：统计每个部门的员工数和工资总额</li>
+<li><code>select dept.dept_no,count(*),sum(sal.sal) from dept,emp,sal where dept.dept_no=emp.emp_dept_no and emp.emp_no=sal.emp_no group by dept.dept_no;</code></li>
+</ul>
+<h4 id="Having的用法"><a href="#Having的用法" class="headerlink" title="Having的用法"></a>Having的用法</h4><ul>
+<li>在分组group by中，一般不管统计的结果是多少都要全部显示，我们可以在group by前或后加having子句来限制结果的统计</li>
+<li>例：统计员工数超过5个人的部门员工数和工资总额</li>
+<li><code>select dept.dept_no,count(*),sum(sal.sal) from dept,emp,sal where dept.dept_no=emp.emp_dept_no and emp.emp_no=sal.emp_no group by dept.dept_no having count(*) &gt; 5;</code></li>
+</ul>
+<h4 id="查询结果的排序"><a href="#查询结果的排序" class="headerlink" title="查询结果的排序"></a>查询结果的排序</h4><ul>
+<li>使用order by进行查询结果的排序，order by语句应位于查询语句的结尾</li>
+<li>例：按照部门编号和工资升序排列</li>
+<li><code>select dept.dept_no,emp.emp_no,sal.sal from emp,dept,sal where emp.emp_dept_no=dept.dept_no and emp.emp_no=sal.emp_no order by dept.dept_no,sal.sal;</code></li>
+<li>按照部门编号升序，工资降序排序</li>
+<li>order by dept.dept_no,sal.sal des;</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/jokerboozp.github.io/images/wechat.jpg" alt="慢慢变好的程序张 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/jokerboozp.github.io/images/alipay.jpg" alt="慢慢变好的程序张 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jokerboozp.github.io/2019/08/26/2019-08-26-Java%E5%9F%BA%E7%A1%80-%E5%B8%B8%E7%94%A8%E7%B1%BB-String/" rel="prev" title="Java基础0826">
+      <i class="fa fa-chevron-left"></i> Java基础0826
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jokerboozp.github.io/2019/08/30/2019-08-30-Java%E5%9F%BA%E7%A1%80-%E5%B8%B8%E7%94%A8%E7%B1%BB-Math-File/" rel="next" title="Java基础0830">
+      Java基础0830 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81MDM1MS8yNjg0MQ=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Oracle内置函数"><span class="nav-text">Oracle内置函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单记录字符函数"><span class="nav-text">单记录字符函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#INSTR"><span class="nav-text">INSTR(,[,[,]])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LENGTH"><span class="nav-text">LENGTH()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LOWER"><span class="nav-text">LOWER()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UPPER"><span class="nav-text">UPPER()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LAPD-String1，Length-String2"><span class="nav-text">LAPD(String1，Length[,String2])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPAD-String1-Length-String2"><span class="nav-text">RPAD(String1,Length[,String2])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LTRIM-String1-String2"><span class="nav-text">LTRIM(String1 [,String2])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RTRIM-String1-String2"><span class="nav-text">RTRIM(String1[,String2])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Substr-String-start-Count"><span class="nav-text">Substr(String,start[,Count])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Replace-‘String1’-’String2’-’Stirng3’"><span class="nav-text">Replace(‘String1’[,’String2’,’Stirng3’])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CEIL"><span class="nav-text">CEIL()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FLOOR"><span class="nav-text">FLOOR()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MOD"><span class="nav-text">MOD(,)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ROUND-VALUE-PRECISION"><span class="nav-text">ROUND(VALUE,PRECISION)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单记录日期函数"><span class="nav-text">单记录日期函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ADD-MONTHS"><span class="nav-text">ADD_MONTHS(,)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LAST-DAY-date"><span class="nav-text">LAST_DAY(date)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MONTHS-BETWEEN-date2-date1"><span class="nav-text">MONTHS_BETWEEN(date2,date1)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SYSDATE"><span class="nav-text">SYSDATE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TRUNC"><span class="nav-text">TRUNC(,[,])</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单记录转换函数"><span class="nav-text">单记录转换函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TO-CHAR-date-’format’"><span class="nav-text">TO_CHAR(date,’format’)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TO-CHAR"><span class="nav-text">TO_CHAR()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TO-NUMBER"><span class="nav-text">TO_NUMBER()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TO-DATE-string-’format’"><span class="nav-text">TO_DATE(string,’format’)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单记录函数小结"><span class="nav-text">单记录函数小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组函数"><span class="nav-text">组函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AVG-DISTINCT-ALL"><span class="nav-text">AVG([{DISTINCT|ALL}])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MAX-DISTINCT-ALL"><span class="nav-text">MAX([{DISTINCT|ALL}])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MIN-DISTINCT-ALL"><span class="nav-text">MIN([{DISTINCT|ALL}])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#带group-by的计算"><span class="nav-text">带group by的计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Having的用法"><span class="nav-text">Having的用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询结果的排序"><span class="nav-text">查询结果的排序</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="慢慢变好的程序张"
+      src="/jokerboozp.github.io/images/1.jpg">
+  <p class="site-author-name" itemprop="name">慢慢变好的程序张</p>
+  <div class="site-description" itemprop="description">一个想要成为全栈工程师的运维开发毕业生</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jokerboozp.github.io/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jokerboozp.github.io/categories/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jokerboozp" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jokerboozp" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jokerboozp.github.io/15239593182@163.com" title="邮箱 → 15239593182@163.com"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/5316905070/profile?topnav=1&wvr=6&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;5316905070&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">慢慢变好的程序张</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">414k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:17</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/jokerboozp.github.io/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/jokerboozp.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/jokerboozp.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jokerboozp.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jokerboozp.github.io/js/utils.js"></script>
+
+<script src="/jokerboozp.github.io/js/motion.js"></script>
+
+
+<script src="/jokerboozp.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jokerboozp.github.io/js/next-boot.js"></script>
+
+<script src="/jokerboozp.github.io/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jokerboozp.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/g8wjrwp9mirlm2gaklcohrcf9lcuzbbd.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>

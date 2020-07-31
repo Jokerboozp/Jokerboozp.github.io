@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jokerboozp.github.io/images/bitbug_favicon32.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jokerboozp.github.io/images/bitbug_favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jokerboozp.github.io/images/bitbug_favicon16.ico">
+  <link rel="mask-icon" href="/jokerboozp.github.io/images/bitbug_favicon32.ico" color="#222">
+
+<link rel="stylesheet" href="/jokerboozp.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jokerboozp.github.io/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jokerboozp.top","root":"/jokerboozp.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="事务的基本特性（ACID） 1.原子性（Atomicity）：事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节，事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样，也就是说事务是一个不可分割的整体，就像化学中的原子，是物质构成的基本单位。 2.一致性（Consistency）：事务开始前和结束后，数据库的完整性约束没有被破坏，比如A向B转账，不可能A扣了钱">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql">
+<meta property="og:url" content="http://jokerboozp.top/2019/10/14/2019-10-14-Mysql/index.html">
+<meta property="og:site_name" content="慢慢变好的程序张">
+<meta property="og:description" content="事务的基本特性（ACID） 1.原子性（Atomicity）：事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节，事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样，也就是说事务是一个不可分割的整体，就像化学中的原子，是物质构成的基本单位。 2.一致性（Consistency）：事务开始前和结束后，数据库的完整性约束没有被破坏，比如A向B转账，不可能A扣了钱">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-17T05:47:11.845Z">
+<meta property="article:author" content="慢慢变好的程序张">
+<meta property="article:tag" content="Java;Spring;SpringCloud;区块链;Dubbo;Vue;算法;Gradle;Shiro;Mysql;Oracle;SpringBoot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://jokerboozp.top/2019/10/14/2019-10-14-Mysql/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Mysql | 慢慢变好的程序张</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?54437ed9f92906a9d0370f8085d314b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/jokerboozp.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">慢慢变好的程序张</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry.Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jokerboozp.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jokerboozp.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/jokerboozp.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/10/14/2019-10-14-Mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mysql
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-14 00:00:00" itemprop="dateCreated datePublished" datetime="2019-10-14T00:00:00+08:00">2019-10-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 13:47:11" itemprop="dateModified" datetime="2020-06-17T13:47:11+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="事务的基本特性（ACID）"><a href="#事务的基本特性（ACID）" class="headerlink" title="事务的基本特性（ACID）"></a>事务的基本特性（ACID）</h4><ul>
+<li>1.原子性（Atomicity）：事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节，事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样，也就是说事务是一个不可分割的整体，就像化学中的原子，是物质构成的基本单位。</li>
+<li>2.一致性（Consistency）：事务开始前和结束后，数据库的完整性约束没有被破坏，比如A向B转账，不可能A扣了钱，B却没有收到</li>
+<li>3.隔离性（Isolation）：同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰。比如A正在从一张银行卡里取钱，在A取钱的过程结束前，B不能向这张卡转账<a id="more"></a></li>
+<li>4.持久性（Durability）：事务完成后，事务对数据库的所有更改将被保存到数据库，不能回滚。</li>
+</ul>
+<h4 id="事务的并发问题"><a href="#事务的并发问题" class="headerlink" title="事务的并发问题"></a>事务的并发问题</h4><ul>
+<li>1.脏读：事务A读取了事务B更新的数据，然后B回滚操作，那么A读取到的数据就是脏数据</li>
+<li>2.不可重复读：事务A多次读取同一数据，事务B在事务A多次读取的过程中，对数据做了更新并提交，导致事务A在多次读取同一数据时，结果不一致</li>
+<li>3.幻读：系统管理员A将数据库中的所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后，发现还有一条数据没有改过来，就好像发生幻觉一样，这就叫做幻读</li>
+<li>不可重复读和幻读很容易混淆，不可重复读侧重于修改，幻读侧重于新增和删除，解决不可重复读的问题只需锁住满足条件的行，解决幻读需要锁表。</li>
+</ul>
+<h4 id="Mysql事务隔离级别"><a href="#Mysql事务隔离级别" class="headerlink" title="Mysql事务隔离级别"></a>Mysql事务隔离级别</h4><ul>
+<li>1.Read-Uncommitted（读取未提交内容）<ul>
+<li>在该隔离级别中，所有事务都可以看到其他未提交事务的执行结果。本隔离级别很少用于实际应用，因为他的实际性能也不比其他级别好多少。读取未提交的数据，也被称之为脏读（Dirty Read）</li>
+</ul>
+</li>
+<li>2.Read-Committed（读取提交内容）<ul>
+<li>这是大多数数据库系统的默认隔离级别（但不是Mysql默认的）。它满足了隔离的简单定义，一个事务只能看见已经提交事务所做的改变。这种隔离级别也支持所谓的不可重读（Nonrepeatable Read），因为同一事务的其他实例在该实例处理期间可能会有新的commit，所以同一select可能返回不同结果</li>
+</ul>
+</li>
+<li>3.Repeatable-Read（可重读）<ul>
+<li>这是Mysql的默认事务隔离级别，他确保同一事务的多个实例在并发读取数据时，会看到同样的数据行。不过理论上，这会导致另一个问题：幻读。InnoDB和Falcon存储引擎通过多版本并发控制机制（MVCC）解决了该问题。</li>
+</ul>
+</li>
+<li>4.Serializable（可串行化）<ul>
+<li>这是最高的隔离级别，它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。简言之，他在每个读的数据行上加了共享锁。在这个级别时，可能导致大量的超时现象和锁竞争。</li>
+</ul>
+</li>
+<li><strong>隔离级别越高，越能保证数据的完整性和一致性，但是对并发性能的影响也越大</strong></li>
+</ul>
+<h4 id="Mysql-MVCC实现机制"><a href="#Mysql-MVCC实现机制" class="headerlink" title="Mysql MVCC实现机制"></a>Mysql MVCC实现机制</h4><ul>
+<li>MVCC是一种多版本并发控制机制</li>
+<li><strong>MVCC是为了解决什么问题</strong><ul>
+<li>大多数的Mysql事务型存储引擎，如InnoDB，Falcon以及PBXT都不使用一种简单的行锁机制，事实上，他们都和MVCC多版本并发控制来一起使用</li>
+<li>锁机制可以控制并发操作，但是其系统开销比较大，而MVCC可以在大多数情况下代替行级锁，使用MVCC能降低其系统开销</li>
+</ul>
+</li>
+<li><strong>MVCC实现</strong><ul>
+<li>MVCC是通过保存数据在某个时间点的快照来实现的，不同存储引擎的MVCC实现是不同的。典型的有乐观并发控制和悲观并发控制</li>
+</ul>
+</li>
+<li><strong>MVCC具体实现分析</strong><ul>
+<li>InnoDB的MVVC，是通过在每行记录后面保存两个隐藏的列来实现的。这两个列分别保存了这个行的创建时间，一个保存的是行的删除时间。这里存储的并不是实际的时间值，而是系统版本号（可以理解为事务的ID），每开始一个新的事务，系统版本号就会自动递增，事务开始时刻的系统版本号会作为事务的ID。</li>
+<li>InnoDB的读分为快照读和当前读，快照读是通过MVVC控制的，可能出现幻读的情况。当前读是通过行锁和间隙锁控制的，此时是加了排他锁的，所有其他的事务都不能动当前的事务。所以避免出现了幻读的可能，一般update、delete都是应用的当前读。<ul>
+<li>当前读即加锁读，读取记录的最新版本号，会加锁保证其他并发事物不能修改当前记录，直至释放锁。插入/更新/删除操作默认使用当前读，显示的为select语句加lock in share mode或for update的查询也采用当前读模式。 </li>
+<li>快照读：不加锁，读取记录的快照版本，而非最新版本，使用MVCC机制，最大的好处是读取不需要加锁，读写不冲突，用于读操作多于写操作的应用，因此在不显示加[lock in share mode]/[for update]的select语句，即普通的一条select语句默认都是使用快照读MVCC实现模式。</li>
+</ul>
+</li>
+<li>事务ID不是提交时创建的，在打开一个会话的时候就创建了一个事务ID，ID=1出现了，你在哪打开一个MySQL数据库连接会话，ID=2的事务就出现了</li>
+</ul>
+</li>
+<li><strong>一个小例子：在Repeatable Read隔离级别下，MVVC具体是如何操作的</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create table yang(</span><br><span class="line">id int primary key auto_increment,</span><br><span class="line">name varchar(20));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>INSERT<ul>
+<li>InnoDB为新插入的每一行保存当前系统版本号作为版本号</li>
+<li>第一个事务ID为1</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">start transaction;</span><br><span class="line">insert into yang values(NULL,&#39;yang&#39;) ;</span><br><span class="line">insert into yang values(NULL,&#39;long&#39;);</span><br><span class="line">insert into yang values(NULL,&#39;fei&#39;);</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>创建时间（事务ID）</th>
+<th>删除时间（事务ID）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>yang</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>2</td>
+<td>long</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>3</td>
+<td>fei</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+</tbody></table>
+<ul>
+<li>SELECT<ul>
+<li>InnoDB会根据以下两个条件检查每行记录：<ul>
+<li>1.InnoDB只会查找版本号早于当前事务版本的数据行（也就是行的系统版本号小于或等于事务的系统版本号），这样可以确保事务读取的行，要么是在事务开始前已经存在的，要么是事务自身插入或者修改过的。</li>
+<li>2.行的删除版本要么未定义，要么大于当前事务版本号，这样可以确保事务读取到的行，在事务开始之前未被删除</li>
+<li><strong>只有1，2同时满足的记录，才能返回作为查询结果</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DELETE<ul>
+<li>InnoDB会为删除的每一行保存当前系统的版本号（事务ID）作为删除标识</li>
+<li>下述代码是第二个事务，ID为2</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">start transaction;</span><br><span class="line">select * from yang;  &#x2F;&#x2F;(1)</span><br><span class="line">select * from yang;  &#x2F;&#x2F;(2)</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>假设1</strong><ul>
+<li>假设在执行这个事务ID为2的过程中，刚执行到(1)，这时，另一个事务ID为3往这个表里添加了一条数据</li>
+<li>下述代码是第三个事务，ID为3</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">start transaction;</span><br><span class="line">insert into yang values(NULL,&#39;tian&#39;);</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这时表中的数据如下</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>创建时间（事务ID）</th>
+<th>删除时间（事务ID）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>yang</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>2</td>
+<td>long</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>3</td>
+<td>fei</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>4</td>
+<td>tian</td>
+<td>3</td>
+<td>undefined</td>
+</tr>
+</tbody></table>
+<ul>
+<li>然后接着执行事务2中的(2)，由于ID=4的数据的创建时间（事务ID=3），执行当前事务的ID为2，而InnoDB只会查找ID小于或等于当前事务ID的数据行，所以ID=4的数据行并不会在执行事务2中的(2)被检索出来。在事务2中的两条select语句检索出来的数据如下表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>创建时间（事务ID）</th>
+<th>删除时间（事务ID）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>yang</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>2</td>
+<td>long</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>3</td>
+<td>fei</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>假设2</strong><ul>
+<li>假设在执行这个事务ID为2的过程中，刚执行到(1)，假设事务执行到事务3后，接着又执行了事务4</li>
+<li>第四个事务</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">start   transaction;  </span><br><span class="line">delete from yang where id&#x3D;1;</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>此时数据库中的数据如下</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>创建时间（事务ID）</th>
+<th>删除时间（事务ID）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>yang</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>long</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>3</td>
+<td>fei</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>4</td>
+<td>tian</td>
+<td>3</td>
+<td>undefined</td>
+</tr>
+</tbody></table>
+<ul>
+<li>接着执行事务ID为2的事务(2)，根据SELECT检索条件可以知道，他会检索创建时间（创建事务的ID）小于当前事务ID的行和删除时间（删除事务的ID）大于当前事务的行。而ID=4的行上面已经说过，而ID=1的行由于删除时间（删除事务的ID）大于当前事务的ID，所以事务2的(2)也会把id=1的数据检索出来。所有事务2中的两条select语句检索出来的数据都如下表所示</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>创建时间（事务ID）</th>
+<th>删除时间（事务ID）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>yang</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>long</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>3</td>
+<td>fei</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+</tbody></table>
+<ul>
+<li>UPDATE<ul>
+<li>InnoDB执行Update，实际上是新插入了一行记录，并保存其创建时间为当前事务的ID，同时保存当前事务ID到要Update的行的删除时间</li>
+</ul>
+</li>
+<li><strong>假设3</strong><ul>
+<li>假设在执行完事务2的(1)后又执行，其他用户执行了事务3，4.这时，又有一个用户对这张表执行了UPDATE操作</li>
+<li>第五个事务</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">start  transaction;</span><br><span class="line">update yang set name&#x3D;&#39;Long&#39; where id&#x3D;2;</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>根据UPDATE的更新原则：会生成新的一行，并在原来要修改的列的删除时间列山添加本事务ID，得到的表如下</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>创建时间（事务ID）</th>
+<th>删除时间（事务ID）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>yang</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>long</td>
+<td>1</td>
+<td>5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>fei</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>4</td>
+<td>tian</td>
+<td>3</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Long</td>
+<td>5</td>
+<td>undefined</td>
+</tr>
+</tbody></table>
+<ul>
+<li>继续执行事务2的(2),根据select语句检索条件，得到如下表：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>创建时间（事务ID）</th>
+<th>删除时间（事务ID）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>yang</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>long</td>
+<td>1</td>
+<td>5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>fei</td>
+<td>1</td>
+<td>undefined</td>
+</tr>
+</tbody></table>
+<ul>
+<li>还是和事务2中的(1)得到相同的结果。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/jokerboozp.github.io/images/wechat.jpg" alt="慢慢变好的程序张 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/jokerboozp.github.io/images/alipay.jpg" alt="慢慢变好的程序张 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jokerboozp.github.io/2019/10/07/2019-10-07-Java%E5%9F%BA%E7%A1%80/" rel="prev" title="Java基础1007">
+      <i class="fa fa-chevron-left"></i> Java基础1007
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jokerboozp.github.io/2019/10/18/2019-10-18-Java%E5%9F%BA%E7%A1%80/" rel="next" title="Java基础1018">
+      Java基础1018 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81MDM1MS8yNjg0MQ=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#事务的基本特性（ACID）"><span class="nav-text">事务的基本特性（ACID）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务的并发问题"><span class="nav-text">事务的并发问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mysql事务隔离级别"><span class="nav-text">Mysql事务隔离级别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mysql-MVCC实现机制"><span class="nav-text">Mysql MVCC实现机制</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="慢慢变好的程序张"
+      src="/jokerboozp.github.io/images/1.jpg">
+  <p class="site-author-name" itemprop="name">慢慢变好的程序张</p>
+  <div class="site-description" itemprop="description">一个想要成为全栈工程师的运维开发毕业生</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jokerboozp.github.io/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jokerboozp.github.io/categories/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jokerboozp" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jokerboozp" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jokerboozp.github.io/15239593182@163.com" title="邮箱 → 15239593182@163.com"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/5316905070/profile?topnav=1&wvr=6&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;5316905070&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">慢慢变好的程序张</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">414k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:17</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/jokerboozp.github.io/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/jokerboozp.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/jokerboozp.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jokerboozp.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jokerboozp.github.io/js/utils.js"></script>
+
+<script src="/jokerboozp.github.io/js/motion.js"></script>
+
+
+<script src="/jokerboozp.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jokerboozp.github.io/js/next-boot.js"></script>
+
+<script src="/jokerboozp.github.io/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jokerboozp.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/g8wjrwp9mirlm2gaklcohrcf9lcuzbbd.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>

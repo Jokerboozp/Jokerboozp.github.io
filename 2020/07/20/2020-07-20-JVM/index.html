@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/jokerboozp.github.io/images/bitbug_favicon32.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/jokerboozp.github.io/images/bitbug_favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/jokerboozp.github.io/images/bitbug_favicon16.ico">
+  <link rel="mask-icon" href="/jokerboozp.github.io/images/bitbug_favicon32.ico" color="#222">
+
+<link rel="stylesheet" href="/jokerboozp.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/jokerboozp.github.io/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jokerboozp.top","root":"/jokerboozp.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="JVM学习一、JVM体系架构  灰色表示： 线程私有 内存占用非常少，几乎不存在GC。   黄色表示： 线程共享 存在垃圾回收">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM学习">
+<meta property="og:url" content="http://jokerboozp.top/2020/07/20/2020-07-20-JVM/index.html">
+<meta property="og:site_name" content="慢慢变好的程序张">
+<meta property="og:description" content="JVM学习一、JVM体系架构  灰色表示： 线程私有 内存占用非常少，几乎不存在GC。   黄色表示： 线程共享 存在垃圾回收">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/27/aFM5RA.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/27/aFMTMt.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/27/aFMjiQ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/27/aFMzzn.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/27/aFQEi4.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/28/aktn7n.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/28/akakp6.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/28/ak2PN8.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/28/ak2z24.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/28/akRCrR.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/28/akb7M6.png">
+<meta property="article:published_time" content="2020-07-20T06:28:48.000Z">
+<meta property="article:modified_time" content="2020-07-28T06:27:20.691Z">
+<meta property="article:author" content="慢慢变好的程序张">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/07/27/aFM5RA.png">
+
+<link rel="canonical" href="http://jokerboozp.top/2020/07/20/2020-07-20-JVM/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JVM学习 | 慢慢变好的程序张</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?54437ed9f92906a9d0370f8085d314b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/jokerboozp.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">慢慢变好的程序张</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay hungry.Stay foolish.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/jokerboozp.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/jokerboozp.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/jokerboozp.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2020/07/20/2020-07-20-JVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM学习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-20 14:28:48" itemprop="dateCreated datePublished" datetime="2020-07-20T14:28:48+08:00">2020-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-28 14:27:20" itemprop="dateModified" datetime="2020-07-28T14:27:20+08:00">2020-07-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="JVM学习"><a href="#JVM学习" class="headerlink" title="JVM学习"></a>JVM学习</h2><h3 id="一、JVM体系架构"><a href="#一、JVM体系架构" class="headerlink" title="一、JVM体系架构"></a>一、JVM体系架构</h3><p><img data-src="https://s1.ax1x.com/2020/07/27/aFM5RA.png" alt="JVM体系架构"></p>
+<ul>
+<li>灰色表示：<ul>
+<li>线程私有</li>
+<li>内存占用非常少，几乎不存在GC。</li>
+</ul>
+</li>
+<li>黄色表示：<ul>
+<li>线程共享</li>
+<li>存在垃圾回收<a id="more"></a></li>
+</ul>
+</li>
+</ul>
+<h3 id="二、类装载器ClassLoader"><a href="#二、类装载器ClassLoader" class="headerlink" title="二、类装载器ClassLoader"></a>二、类装载器ClassLoader</h3><ul>
+<li>负责加载class文件，class文件在文件开头有特定的文件标识，将class文件字节码内容加载到内存中，并将这些内容转换成方法区中的运行时数据结构，并且ClassLoader只负责class文件的加载，至于他是否可以运行，则由Execution Engine决定。</li>
+</ul>
+<p><img data-src="https://s1.ax1x.com/2020/07/27/aFMTMt.png" alt="ClassLoader"></p>
+<ul>
+<li>JVM虚拟机自带的加载器<ul>
+<li>启动类加载器（BootStrap）：使用C++编写</li>
+<li>拓展类加载器（Extension）：使用Java编写</li>
+<li>应用程序类加载器（AppClassLoader）：Java也叫系统类加载器，加载当前应用的classpath的所有类。</li>
+</ul>
+</li>
+<li>用户自定义加载器<ul>
+<li>Java.lang.ClassLoader的子类，用户可以定制类的加载方式。</li>
+</ul>
+</li>
+</ul>
+<p><img data-src="https://s1.ax1x.com/2020/07/27/aFMjiQ.png" alt="ClassLoader1"></p>
+<ul>
+<li>示例1</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Object object = <span class="keyword">new</span> Object();</span><br><span class="line">        System.out.println(object.getClass().getClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>上方代码运行后并不会显示BootStrap启动类加载器，因为BootStrap是C++编写的，所以只能显示出null。如果是JDK自带的，那么就会经过BootStrap类加载器。</p>
+</li>
+<li><p>示例2</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Object object = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">        Test test = <span class="keyword">new</span> Test();</span><br><span class="line">        System.out.println(test.getClass().getClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>上方代码运行后会显示<code>sun.misc.Launcher$AppClassLoader@18b4aac2</code>，因为Test是自行编写的，所以经过AppClassLoader加载器。</p>
+</li>
+<li><p>示例3</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Object object = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">        Test test = <span class="keyword">new</span> Test();</span><br><span class="line">        System.out.println(test.getClass().getClassLoader());</span><br><span class="line">        System.out.println(test.getClass().getClassLoader().getParent());</span><br><span class="line">        System.out.println(test.getClass().getClassLoader().getParent().getParent());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>上方代码运行后会依次显示<code>sun.misc.Launcher$AppClassLoader@18b4aac2</code>、<code>sun.misc.Launcher$ExtClassLoader@4554617c</code>、<code>null</code>。也就是按照JVM类加载器的先后顺序进行显示。</li>
+</ul>
+<h4 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h4><ul>
+<li>当一个类收到了类加载请求，他首先不会尝试自己去加载这个类，而是把这个请求委派给父类去完成，每一个层次类加载器都是如此，因此所有的加载请求都应该传送到启动类加载器中，只有当父类加载器反馈自己无法完成这个请求的时候（在他的路径下没有找到所需要加载的class），子类加载器才会尝试自己去加载。</li>
+<li>采用双亲委派机制的一个好处是比如加载位于rt.jar包中的类java.lang.Object，不管是哪一个加载器加载这个类，最终都是委托给顶层的启动类加载器进行加载，这样就保证了使用不同的类加载器最终得到的都是同样一个Object对象。（沙箱安全）</li>
+</ul>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ol>
+<li>什么是类加载器</li>
+<li>类加载器有哪些类型</li>
+<li>双亲委派</li>
+<li>沙箱安全</li>
+</ol>
+<h3 id="三、本地接口（Native）"><a href="#三、本地接口（Native）" class="headerlink" title="三、本地接口（Native）"></a>三、本地接口（Native）</h3><ul>
+<li>不需要了解</li>
+</ul>
+<h3 id="四、PC寄存器（程序计数器Program-Counter-Register）"><a href="#四、PC寄存器（程序计数器Program-Counter-Register）" class="headerlink" title="四、PC寄存器（程序计数器Program Counter Register）"></a>四、PC寄存器（程序计数器Program Counter Register）</h3><ul>
+<li>每个线程都有一个程序计数器，是线程私有的，就是一个指针，指向方法区的方法字节码（用来存储指向下一条指令的地址，也即将要执行的代码），由执行引擎读取下一条指令，是一个非常小的内存空间，几乎可以忽略不计。</li>
+<li>这块内存区域很小，他是当前线程所执行的字节码的行号指示器，字节码解释器通过改变这个计数器的值来选取下一条需要执行的字节码指令。</li>
+<li>如果执行一个Native方法，那这个计数器是空的。</li>
+<li>PC寄存器用来完成分支、循环、跳转、异常处理、线程恢复等基础功能。不会发生内存溢出（Out Of Memory：OOM）错误。</li>
+</ul>
+<h3 id="五、方法区"><a href="#五、方法区" class="headerlink" title="五、方法区"></a>五、方法区</h3><ul>
+<li>供各线程共享的运行时内存区域。他存储了<strong>每一个类的结构信息</strong>，例如运行时常量池（Runtime Constant Pool）、字段和方法数据、构造函数和普通方法的字节码内容。上面讲的是规范，在不同虚拟机里实现是不一样的，最典型的就是永久代（Permgen Space）和元空间（Metaspace）。</li>
+<li><strong>但是，实例变量存放在堆内存中，和方法区无关</strong></li>
+</ul>
+<h3 id="六、栈"><a href="#六、栈" class="headerlink" title="六、栈"></a>六、栈</h3><ul>
+<li><p><strong>栈管运行，堆管存储</strong></p>
+</li>
+<li><p>栈也叫栈内存，主管Java程序的运行， 是在线程创建时创建，他的生命期是跟随线程的生命期，线程结束栈内存也就释放，对于栈来说不存在垃圾回收问题，只要线程结束该栈就over，生命周期和线程一致，是线程私有的。<strong>8种基本类型的变量+对象的引用变量+实例方法都是在函数的栈内存中分配。</strong></p>
+</li>
+<li><p>Java中的方法，进入栈后叫做栈帧。main方法永远是第一个入栈的。</p>
+</li>
+<li><p>栈帧中主要保存三类数据</p>
+<ul>
+<li><p>本地变量（Local Variables）：输入参数、输出参数以及方法内的变量</p>
+</li>
+<li><p>栈操作（Operand Stack）：记录出栈、入栈的操作</p>
+</li>
+<li><p>栈帧数据（Frame Data）：包括类文件、方法等</p>
+</li>
+<li><p>栈运行原理</p>
+<ul>
+<li>栈中的数据都是以栈帧的格式存在，栈帧是一个内存区块，是一个有关方法和运行期数据的数据集，当一个方法A被调用时就产生了一个栈帧F1，并被压入到栈中，A方法又调用了B方法，于是产生栈帧F2也被压入栈。。。。。。执行完毕后，先弹出F2栈帧，再弹出F1栈帧。。。。。。遵循“先进后出”/“后进先出”原则</li>
+<li>每个方法执行的同时都会创建一个栈帧，用于存储局部变量表、操作数栈、动态链接、方法出口等信息，每一个方法从调用直至执行完毕的过程，就对应着一个栈帧在虚拟机中入栈到出栈的过程。栈的大小和具体JVM的实现有关，通常在256K~756K之间，约等于1MB。<br><img data-src="https://s1.ax1x.com/2020/07/27/aFMzzn.png" alt="栈"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>java.lang.StackOverflowError</code>是一个错误，不是异常。<br><img data-src="https://s1.ax1x.com/2020/07/27/aFQEi4.png" alt="StackOverflowError"></p>
+</li>
+</ul>
+<h3 id="七、堆（heap）"><a href="#七、堆（heap）" class="headerlink" title="七、堆（heap）"></a>七、堆（heap）</h3><ul>
+<li>一个JVM实例只存在一个堆内存，堆内存的大小是可以调节的。类加载器读取了类文件之后，需要把类，方法，常变量放到堆内存中，保存所有引用类型的真实信息，以方便执行器执行，堆内存逻辑上分为如下三部分，物理上分为新生区和养老区。</li>
+</ul>
+<h4 id="7-1、新生区"><a href="#7-1、新生区" class="headerlink" title="7.1、新生区"></a>7.1、新生区</h4><ol>
+<li>伊甸园区（Eden Space）</li>
+</ol>
+<ul>
+<li>GC是在伊甸园区发生的</li>
+</ul>
+<ol start="2">
+<li>幸存0区（Survivor 0 Space），别名from区</li>
+<li>幸存1区（Survivor 1 Space），别名to区</li>
+</ol>
+<p><strong>from区和to区他们的位置和名分不固定，每次GC后会交换，谁空谁是to区。</strong></p>
+<h4 id="7-2、养老区（Tenure-Generation-Space）"><a href="#7-2、养老区（Tenure-Generation-Space）" class="headerlink" title="7.2、养老区（Tenure Generation Space）"></a>7.2、养老区（Tenure Generation Space）</h4><h4 id="7-3、元空间"><a href="#7-3、元空间" class="headerlink" title="7.3、元空间"></a>7.3、元空间</h4><h4 id="7-4、MinorGC具体流程"><a href="#7-4、MinorGC具体流程" class="headerlink" title="7.4、MinorGC具体流程"></a>7.4、MinorGC具体流程</h4><ol>
+<li>eden、SurvivorFrom复制到SurvivorTo，年龄+1</li>
+</ol>
+<ul>
+<li>首先，当Eden区满的时候会触发第一次GC，把还活着的对象拷贝到SurvivorFrom区，当Eden再次触发GC的时候会扫描Eden区和From区，对这两个区进行GC，经过这次回收后还存活的对象，则直接复制到To区域（如果有对象的年龄已经达到了老年的标准，则复制到老年代区），同时把这些对象的年龄+1</li>
+</ul>
+<ol start="2">
+<li>清空eden、SurvivorFrom</li>
+</ol>
+<ul>
+<li>然后清空Eden和SurvivorFrom中的对象，也即复制之后有交换，谁空谁是to</li>
+</ul>
+<ol start="3">
+<li>SurvivorFrom和SurvivorTo交换</li>
+</ol>
+<ul>
+<li>最后，SurvivorTo和SurvivorFrom互换，原SurvivorTo成为下一次GC时的SurvivorFrom区。部分对象会在From和To区域中来回复制，如此交换15次（由JVM参数MaxTenuringThreshold决定，这个参数默认是15），最终如果还是存活，就存入老年代。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeValue1</span><span class="params">(<span class="keyword">int</span> age)</span></span>&#123;</span><br><span class="line">        age=<span class="number">30</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeValue2</span><span class="params">(Person person)</span></span>&#123;</span><br><span class="line">        person.setPersonName(<span class="string">"xxx"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeValue3</span><span class="params">(String str)</span></span>&#123;</span><br><span class="line">        str=<span class="string">"xxx"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Test1 test1 = <span class="keyword">new</span> Test1();</span><br><span class="line">        <span class="keyword">int</span> age=<span class="number">10</span>;</span><br><span class="line">        test1.changeValue1(age);</span><br><span class="line">        System.out.println(<span class="string">"age======"</span>+age);</span><br><span class="line"></span><br><span class="line">        Person person = <span class="keyword">new</span> Person();</span><br><span class="line">        person.setPersonName(<span class="string">"abc"</span>);</span><br><span class="line">        test1.changeValue2(person);</span><br><span class="line">        System.out.println(<span class="string">"personName====="</span>+person.getPersonName());</span><br><span class="line"></span><br><span class="line">        String str=<span class="string">"abc"</span>;</span><br><span class="line">        test1.changeValue3(str);</span><br><span class="line">        System.out.println(<span class="string">"String======="</span>+str);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>结果</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">age======10</span><br><span class="line">personName=====xxx</span><br><span class="line">String=======abc</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>解析</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1.age:</span><br><span class="line">基本类型传复印件。main方法中的age和changeValue1方法中的age一个属于原件，一个属于副本。changeValue1只是修改了age的副本，真正的age并未修改，所以age依旧是10。</span><br><span class="line"></span><br><span class="line">2.personName:</span><br><span class="line">引用类型传递的是内存地址。所以changeValue2会被修改</span><br><span class="line"></span><br><span class="line">3.String</span><br><span class="line">因为常量池中没有str，所以会现在常量池中新建一个str，在执行changeValue3的时候，changeValue3方法会首先查找常量池中有没有`xxx`这个常量，没有的话就会新建这个常量，并且该方法指向该常量。但是main方法最后的输出是输出main方法中的str，而不是changeValue3中的str，所以依旧是abc</span><br></pre></td></tr></table></figure>
+
+<h3 id="八、JVM内存调整"><a href="#八、JVM内存调整" class="headerlink" title="八、JVM内存调整"></a>八、JVM内存调整</h3><ul>
+<li>在Java8中，永久代已经被移除，被一个成为元空间的区域所取代，元空间的本质和永久代类似。</li>
+<li>元空间与永久代之间最大的区别在于：<ul>
+<li>永久代使用的是JVM的堆内存，但是Java8之后的元空间并不在虚拟机中而是使用本机的物理内存。</li>
+</ul>
+</li>
+<li>因此默认情况下，元空间的大小仅受本地内存限制。类的元数据放入Native Memory，字符串池河类的静态变量放入Java堆中，这样可以加载多少类的元数据就不再由MaxPermSize控制，而是由系统的实际可用空间来控制。</li>
+</ul>
+<h4 id="8-1、堆内存调优简介"><a href="#8-1、堆内存调优简介" class="headerlink" title="8.1、堆内存调优简介"></a>8.1、堆内存调优简介</h4><ul>
+<li>Xms：设置初始分配大小，默认为物理内存的1/64</li>
+<li>Xmx：最大分配内存，默认为物理内存的1/4</li>
+<li>XX:+PrintGCDetail：输出详细的GC处理日志</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test3</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> maxMemory = Runtime.getRuntime().maxMemory();<span class="comment">//返回Java虚拟机试图使用的最大内存量</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> totalMemory = Runtime.getRuntime().totalMemory();<span class="comment">//返回Java虚拟机中的内存总量</span></span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"MAX_MEMORY="</span>+maxMemory+<span class="string">"字节、"</span>+(maxMemory/(<span class="keyword">double</span>)<span class="number">1024</span>/<span class="number">1024</span>)+<span class="string">"MB"</span>);</span><br><span class="line">        System.out.println(<span class="string">"TOTAL_MEMORY="</span>+totalMemory+<span class="string">"字节、"</span>+(totalMemory/(<span class="keyword">double</span>)<span class="number">1024</span>/<span class="number">1024</span>)+<span class="string">"MB"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用idea修改jvm内存，并显示GC处理日志。要求初始分配大小和最大分配内存相同。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xms1024m -Xmx1024m -XX:+PrintGCDetails</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://s1.ax1x.com/2020/07/28/aktn7n.png" alt="JVM内存修改"><br><img data-src="https://s1.ax1x.com/2020/07/28/akakp6.png" alt="运行效果"></p>
+<ul>
+<li>所以逻辑上堆内存是由年轻代+老年代+元空间构成；物理上是由年轻代+老年代构成。因为上图中<code>PSYoungGen的容量/1024+ParOldGen的容量/1024=MAX_MEMORY</code></li>
+</ul>
+<h4 id="8-2、OOM"><a href="#8-2、OOM" class="headerlink" title="8.2、OOM"></a>8.2、OOM</h4><ul>
+<li>如果出现java.lang.OutOfMemoryError:Java heap space异常，说明Java虚拟机的堆内存不够，原因有二：<ul>
+<li>1.Java虚拟机的堆内存设置不够，可以通过参数-Xms、-Xmx来调整</li>
+<li>2.代码中创建了大量大对象。并且长时间不能被垃圾收集器收集（存在被引用）</li>
+</ul>
+</li>
+</ul>
+<h4 id="8-3、GC收集日志信息（OOM情况）"><a href="#8-3、GC收集日志信息（OOM情况）" class="headerlink" title="8.3、GC收集日志信息（OOM情况）"></a>8.3、GC收集日志信息（OOM情况）</h4><ul>
+<li>设置Xms和Xmx为10m</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test3</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">40</span> * <span class="number">1024</span> * <span class="number">1024</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>由上述代码可以看出，JVM总内存为10M，但是代码中新建了一个大小为40M的数组，所以会产生OOM</p>
+</li>
+<li><p>报错信息</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[GC (Allocation Failure) [PSYoungGen: <span class="number">1743</span>K-&gt;<span class="number">504</span>K(<span class="number">2560</span>K)] <span class="number">1743</span>K-&gt;<span class="number">688</span>K(<span class="number">9728</span>K), <span class="number">0.0017138</span> secs] [Times: user=<span class="number">0.00</span> sys=<span class="number">0.00</span>, real=<span class="number">0.00</span> secs] </span><br><span class="line">[GC (Allocation Failure) [PSYoungGen: <span class="number">504</span>K-&gt;<span class="number">496</span>K(<span class="number">2560</span>K)] <span class="number">688</span>K-&gt;<span class="number">728</span>K(<span class="number">9728</span>K), <span class="number">0.0013348</span> secs] [Times: user=<span class="number">0.00</span> sys=<span class="number">0.00</span>, real=<span class="number">0.00</span> secs] </span><br><span class="line">[<span class="function">Full <span class="title">GC</span> <span class="params">(Allocation Failure)</span> [PSYoungGen: 496K-&gt;0<span class="title">K</span><span class="params">(<span class="number">2560</span>K)</span>] [ParOldGen: 232K-&gt;602<span class="title">K</span><span class="params">(<span class="number">7168</span>K)</span>] 728K-&gt;602<span class="title">K</span><span class="params">(<span class="number">9728</span>K)</span>, [Metaspace: 3334K-&gt;3334<span class="title">K</span><span class="params">(<span class="number">1056768</span>K)</span>], 0.0126571 secs] [Times: user</span>=<span class="number">0.08</span> sys=<span class="number">0.00</span>, real=<span class="number">0.01</span> secs] </span><br><span class="line">[GC (Allocation Failure) [PSYoungGen: <span class="number">0</span>K-&gt;<span class="number">0</span>K(<span class="number">2560</span>K)] <span class="number">602</span>K-&gt;<span class="number">602</span>K(<span class="number">9728</span>K), <span class="number">0.0011456</span> secs] [Times: user=<span class="number">0.00</span> sys=<span class="number">0.00</span>, real=<span class="number">0.00</span> secs] </span><br><span class="line">[<span class="function">Full <span class="title">GC</span> <span class="params">(Allocation Failure)</span> [PSYoungGen: 0K-&gt;0<span class="title">K</span><span class="params">(<span class="number">2560</span>K)</span>] [ParOldGen: 602K-&gt;584<span class="title">K</span><span class="params">(<span class="number">7168</span>K)</span>] 602K-&gt;584<span class="title">K</span><span class="params">(<span class="number">9728</span>K)</span>, [Metaspace: 3334K-&gt;3334<span class="title">K</span><span class="params">(<span class="number">1056768</span>K)</span>], 0.0133559 secs] [Times: user</span>=<span class="number">0.06</span> sys=<span class="number">0.00</span>, real=<span class="number">0.02</span> secs] </span><br><span class="line">Heap</span><br><span class="line"> PSYoungGen      total <span class="number">2560</span>K, used <span class="number">139</span>K [<span class="number">0x00000000ffd00000</span>, <span class="number">0x0000000100000000</span>, <span class="number">0x0000000100000000</span>)</span><br><span class="line">  eden space <span class="number">2048</span>K, <span class="number">6</span>% used [<span class="number">0x00000000ffd00000</span>,<span class="number">0x00000000ffd22c78</span>,<span class="number">0x00000000fff00000</span>)</span><br><span class="line">  from space <span class="number">512</span>K, <span class="number">0</span>% used [<span class="number">0x00000000fff00000</span>,<span class="number">0x00000000fff00000</span>,<span class="number">0x00000000fff80000</span>)</span><br><span class="line">  to   space <span class="number">512</span>K, <span class="number">0</span>% used [<span class="number">0x00000000fff80000</span>,<span class="number">0x00000000fff80000</span>,<span class="number">0x0000000100000000</span>)</span><br><span class="line"> ParOldGen       total <span class="number">7168</span>K, used <span class="number">584</span>K [<span class="number">0x00000000ff600000</span>, <span class="number">0x00000000ffd00000</span>, <span class="number">0x00000000ffd00000</span>)</span><br><span class="line">  object space <span class="number">7168</span>K, <span class="number">8</span>% used [<span class="number">0x00000000ff600000</span>,<span class="number">0x00000000ff6922f8</span>,<span class="number">0x00000000ffd00000</span>)</span><br><span class="line"> Metaspace       used <span class="number">3393</span>K, capacity <span class="number">4496</span>K, committed <span class="number">4864</span>K, reserved <span class="number">1056768</span>K</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">space</span>    <span class="title">used</span> 372<span class="title">K</span>, <span class="title">capacity</span> 388<span class="title">K</span>, <span class="title">committed</span> 512<span class="title">K</span>, <span class="title">reserved</span> 1048576<span class="title">K</span></span></span><br><span class="line">Exception in thread "main" java.lang.OutOfMemoryError: Java heap space</span><br><span class="line"> at com.sc.Test3.main(Test3.java:<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">Process finished with exit code <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>轻GC</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[GC (Allocation Failure) </span><br><span class="line">[PSYoungGen: <span class="number">1743</span>K-&gt;<span class="number">504</span>K(<span class="number">2560</span>K)] <span class="number">1743</span>K-&gt;<span class="number">688</span>K(<span class="number">9728</span>K), <span class="number">0.0017138</span> secs] </span><br><span class="line">[Times: user=<span class="number">0.00</span> sys=<span class="number">0.00</span>, real=<span class="number">0.00</span> secs]</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://s1.ax1x.com/2020/07/28/ak2PN8.png" alt="轻GC日志详情"></p>
+<p>2.FullGC</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="function">Full <span class="title">GC</span> <span class="params">(Allocation Failure)</span></span></span><br><span class="line"><span class="function">[PSYoungGen: 496K-&gt;0<span class="title">K</span><span class="params">(<span class="number">2560</span>K)</span>] </span></span><br><span class="line"><span class="function">[ParOldGen: 232K-&gt;602<span class="title">K</span><span class="params">(<span class="number">7168</span>K)</span>] 728K-&gt;602<span class="title">K</span><span class="params">(<span class="number">9728</span>K)</span>, </span></span><br><span class="line"><span class="function">[Metaspace: 3334K-&gt;3334<span class="title">K</span><span class="params">(<span class="number">1056768</span>K)</span>], 0.0126571 secs] </span></span><br><span class="line"><span class="function">[Times: user</span>=<span class="number">0.08</span> sys=<span class="number">0.00</span>, real=<span class="number">0.01</span> secs]</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://s1.ax1x.com/2020/07/28/ak2z24.png" alt="FullGC日志详情1"><br><img data-src="https://s1.ax1x.com/2020/07/28/akRCrR.png" alt="FullGC日志详情2"></p>
+<h3 id="九、GC"><a href="#九、GC" class="headerlink" title="九、GC"></a>九、GC</h3><h4 id="9-1、GC是什么"><a href="#9-1、GC是什么" class="headerlink" title="9.1、GC是什么"></a>9.1、GC是什么</h4><ul>
+<li>GC是分代收集算法（次数上频繁收集Young区、次数上较少收集Old区，基本不动元空间）</li>
+</ul>
+<h4 id="9-2、GC算法总体概述"><a href="#9-2、GC算法总体概述" class="headerlink" title="9.2、GC算法总体概述"></a>9.2、GC算法总体概述</h4><p><img data-src="https://s1.ax1x.com/2020/07/28/akb7M6.png" alt="GC算法总体"></p>
+<ul>
+<li><p>JVM在进行GC时，并非每次都对上面三个内存区域一起回收的，大部分时候回收的都是指新生代。</p>
+</li>
+<li><p>因此GC按照回收的区域又分了两种类型，一种是普通GC（Minor GC），一种是全局GC（Major GC或者Full GC）</p>
+</li>
+<li><p>Minor GC和Full GC的区别</p>
+<ul>
+<li>普通GC（Minor GC）：只针对新生代区域的GC，指发生在新生代的垃圾收集动作，因为大多数Java对象存活率都不高，所以Minor GC非常频繁，一般回收速度也比较快。</li>
+<li>全局GC（Full GC或者Major GC）：指发生在老年代的垃圾收集动作，出现了Major GC，经常会伴随至少一次的Minor GC（但并不是绝对的）。Major GC的速度一般要比Minor GC慢上10倍以上。</li>
+</ul>
+</li>
+</ul>
+<h3 id="十、GC四大算法"><a href="#十、GC四大算法" class="headerlink" title="十、GC四大算法"></a>十、GC四大算法</h3><h4 id="10-1、引用计数法"><a href="#10-1、引用计数法" class="headerlink" title="10.1、引用计数法"></a>10.1、引用计数法</h4><ul>
+<li><p>JVM的实现一般不采用这种方式</p>
+</li>
+<li><p>缺点主要是</p>
+<ul>
+<li>每次对对象赋值时均要维护引用计数器，且计数器本身也有一定的消耗</li>
+<li>较难处理循环引用</li>
+</ul>
+</li>
+</ul>
+<h4 id="10-2、复制算法（Copying）"><a href="#10-2、复制算法（Copying）" class="headerlink" title="10.2、复制算法（Copying）"></a>10.2、复制算法（Copying）</h4><ul>
+<li>年轻代中使用的是Minor GC，这种GC算法采用的是复制算法（Copying）</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/jokerboozp.github.io/images/wechat.jpg" alt="慢慢变好的程序张 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/jokerboozp.github.io/images/alipay.jpg" alt="慢慢变好的程序张 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/jokerboozp.github.io/tags/JVM/" rel="tag"># JVM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jokerboozp.github.io/2020/07/10/2020-07-10-SpringCloud%E5%9F%BA%E7%A1%80%E5%8F%8A%E6%9C%8D%E5%8A%A1%E6%80%BB%E7%BA%BFBus%E5%AD%A6%E4%B9%A0/" rel="prev" title="SpringCloud基础及服务总线Bus学习">
+      <i class="fa fa-chevron-left"></i> SpringCloud基础及服务总线Bus学习
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81MDM1MS8yNjg0MQ=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM学习"><span class="nav-text">JVM学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、JVM体系架构"><span class="nav-text">一、JVM体系架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、类装载器ClassLoader"><span class="nav-text">二、类装载器ClassLoader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#双亲委派机制"><span class="nav-text">双亲委派机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、本地接口（Native）"><span class="nav-text">三、本地接口（Native）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、PC寄存器（程序计数器Program-Counter-Register）"><span class="nav-text">四、PC寄存器（程序计数器Program Counter Register）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、方法区"><span class="nav-text">五、方法区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、栈"><span class="nav-text">六、栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、堆（heap）"><span class="nav-text">七、堆（heap）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1、新生区"><span class="nav-text">7.1、新生区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2、养老区（Tenure-Generation-Space）"><span class="nav-text">7.2、养老区（Tenure Generation Space）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-3、元空间"><span class="nav-text">7.3、元空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4、MinorGC具体流程"><span class="nav-text">7.4、MinorGC具体流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#八、JVM内存调整"><span class="nav-text">八、JVM内存调整</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1、堆内存调优简介"><span class="nav-text">8.1、堆内存调优简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2、OOM"><span class="nav-text">8.2、OOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3、GC收集日志信息（OOM情况）"><span class="nav-text">8.3、GC收集日志信息（OOM情况）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#九、GC"><span class="nav-text">九、GC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-1、GC是什么"><span class="nav-text">9.1、GC是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-2、GC算法总体概述"><span class="nav-text">9.2、GC算法总体概述</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十、GC四大算法"><span class="nav-text">十、GC四大算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#10-1、引用计数法"><span class="nav-text">10.1、引用计数法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-2、复制算法（Copying）"><span class="nav-text">10.2、复制算法（Copying）</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="慢慢变好的程序张"
+      src="/jokerboozp.github.io/images/1.jpg">
+  <p class="site-author-name" itemprop="name">慢慢变好的程序张</p>
+  <div class="site-description" itemprop="description">一个想要成为全栈工程师的运维开发毕业生</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/jokerboozp.github.io/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/jokerboozp.github.io/categories/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jokerboozp" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jokerboozp" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jokerboozp.github.io/15239593182@163.com" title="邮箱 → 15239593182@163.com"><i class="fa fa-envelope fa-fw"></i>邮箱</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/5316905070/profile?topnav=1&wvr=6&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;5316905070&#x2F;profile?topnav&#x3D;1&amp;wvr&#x3D;6&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">慢慢变好的程序张</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">414k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:17</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/jokerboozp.github.io/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/jokerboozp.github.io/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/jokerboozp.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/jokerboozp.github.io/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/jokerboozp.github.io/js/utils.js"></script>
+
+<script src="/jokerboozp.github.io/js/motion.js"></script>
+
+
+<script src="/jokerboozp.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/jokerboozp.github.io/js/next-boot.js"></script>
+
+<script src="/jokerboozp.github.io/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/jokerboozp.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/g8wjrwp9mirlm2gaklcohrcf9lcuzbbd.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
