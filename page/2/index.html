@@ -1098,7 +1098,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/12/16/2019-12-16-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%B4%A6%E6%88%B7/">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/12/16/2019-12-16-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E7%9A%84%E7%8A%B6%E6%80%81%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
@@ -1112,7 +1112,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/jokerboozp.github.io/2019/12/16/2019-12-16-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%B4%A6%E6%88%B7/" class="post-title-link" itemprop="url">以太坊-以太坊账户</a>
+            <a href="/jokerboozp.github.io/2019/12/16/2019-12-16-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E7%9A%84%E7%8A%B6%E6%80%81%E6%A0%91/" class="post-title-link" itemprop="url">以太坊-以太坊中的状态数</a>
         </h2>
 
         <div class="post-meta">
@@ -1129,7 +1129,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-17 15:33:23" itemprop="dateModified" datetime="2020-06-17T15:33:23+08:00">2020-06-17</time>
+                <time title="修改时间：2020-06-17 15:33:32" itemprop="dateModified" datetime="2020-06-17T15:33:32+08:00">2020-06-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1147,14 +1147,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -1166,11 +1166,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="以太坊账户"><a href="#以太坊账户" class="headerlink" title="以太坊账户"></a>以太坊账户</h4><ul>
-<li>比特币中用的是基于交易的账本，这种情况下系统中并没有显式的记录每个账户上有多少钱（需要计算UTXO中的值才能知道某个账户有多少比特币）。这种模式的好处是隐私保护特别好，你有多少钱，可能自己都不清楚。但是这样带来一个问题：它使用上是比较别扭的，像用户在花费比特币的时候，需要把现在账户内的余额全部花出去，否则剩余的比特币就会作为交易费转发给矿工。这样的原因是比特币系统中没有显式的维护这种基于账户的交易的概念，他是每个交易单独进行处理的。
+          <ul>
+<li><p><strong>探究一下以太坊中用什么样的数据结构来实现基于账户的模式</strong></p>
+</li>
+<li><p>我们要完成的是从账户地址（account address）到账户状态（account state）的映射。</p>
+<ul>
+<li>以太坊中的账户地址是160bits的，一般把他表示成40个16进制的数。</li>
+<li>状态就是外部账户和合约账户的状态
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/jokerboozp.github.io/2019/12/16/2019-12-16-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%B4%A6%E6%88%B7/#more" rel="contents">
+              <a class="btn" href="/jokerboozp.github.io/2019/12/16/2019-12-16-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%B8%AD%E7%9A%84%E7%8A%B6%E6%80%81%E6%A0%91/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1329,13 +1334,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">418k</span>
+    <span title="站点总字数">420k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:20</span>
+    <span title="站点阅读时长">6:22</span>
 </div>
 
         
