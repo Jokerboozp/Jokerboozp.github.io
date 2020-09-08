@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="慢慢变好的程序张">
 <meta property="og:description" content="一、概述1.1、Bus是什么 SpringCloud Bus配合SpringCloud Config使用可以实现配置的动态刷新。Spring Cloud Bus是用来将分布式系统的节点与轻量级消息系统链接起来的框架，它整合了Java的事件处理机制和消息中间件的功能。Spring Cloud Bus目前支持RabbitMQ和Kafaka  1.2、Bus能做什么 Spring Cloud Bus能管">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/09/08/wKxohF.png">
 <meta property="article:published_time" content="2020-07-10T06:36:41.000Z">
-<meta property="article:modified_time" content="2020-09-07T08:59:32.907Z">
+<meta property="article:modified_time" content="2020-09-08T01:47:33.984Z">
 <meta property="article:author" content="慢慢变好的程序张">
 <meta property="article:tag" content="SpringCloud">
 <meta property="article:tag" content="Bus">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/09/08/wKxohF.png">
 
 <link rel="canonical" href="http://jokerboozp.top/2020/07/10/2020-07-10-SpringCloud%E5%9F%BA%E7%A1%80%E5%8F%8A%E6%9C%8D%E5%8A%A1%E6%80%BB%E7%BA%BFBus%E5%AD%A6%E4%B9%A0/">
 
@@ -224,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-07 16:59:32" itemprop="dateModified" datetime="2020-09-07T16:59:32+08:00">2020-09-07</time>
+                <time title="修改时间：2020-09-08 09:47:33" itemprop="dateModified" datetime="2020-09-08T09:47:33+08:00">2020-09-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,7 +255,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>502</span>
+              <span>656</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -283,6 +285,15 @@
 </li>
 <li><p><strong>基本原理</strong>：COnfigClient实例都监听MQ中同一个topic（默认是SpringCloud Bus），当一个服务刷新数据的时候，他会把这个信息放入到Topic中，这样其他监听同一个Topic的服务就能得到通知，然后去更新自身的配置。</p>
 </li>
+</ul>
+<h2 id="二、RabbitMQ环境配置"><a href="#二、RabbitMQ环境配置" class="headerlink" title="二、RabbitMQ环境配置"></a>二、RabbitMQ环境配置</h2><h3 id="2-1、安装Erlang"><a href="#2-1、安装Erlang" class="headerlink" title="2.1、安装Erlang"></a>2.1、安装Erlang</h3><ul>
+<li>直接下载安装即可</li>
+</ul>
+<h3 id="2-2、安装RabbitMQ"><a href="#2-2、安装RabbitMQ" class="headerlink" title="2.2、安装RabbitMQ"></a>2.2、安装RabbitMQ</h3><h4 id="2-2-1、进入到mq安装目录的sbin目录下，输入如下命令启动管理功能"><a href="#2-2-1、进入到mq安装目录的sbin目录下，输入如下命令启动管理功能" class="headerlink" title="2.2.1、进入到mq安装目录的sbin目录下，输入如下命令启动管理功能"></a>2.2.1、进入到mq安装目录的sbin目录下，输入如下命令启动管理功能</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://s1.ax1x.com/2020/09/08/wKxohF.png" alt="启动管理功能"></p>
+<ul>
+<li>执行命令之后会新增一些可视化插件，在开始菜单中可以找到。</li>
 </ul>
 
     </div>
@@ -393,7 +404,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、概述"><span class="nav-text">一、概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1、Bus是什么"><span class="nav-text">1.1、Bus是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2、Bus能做什么"><span class="nav-text">1.2、Bus能做什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3、什么是总线"><span class="nav-text">1.3、什么是总线</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、概述"><span class="nav-text">一、概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1、Bus是什么"><span class="nav-text">1.1、Bus是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2、Bus能做什么"><span class="nav-text">1.2、Bus能做什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3、什么是总线"><span class="nav-text">1.3、什么是总线</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、RabbitMQ环境配置"><span class="nav-text">二、RabbitMQ环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1、安装Erlang"><span class="nav-text">2.1、安装Erlang</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2、安装RabbitMQ"><span class="nav-text">2.2、安装RabbitMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1、进入到mq安装目录的sbin目录下，输入如下命令启动管理功能"><span class="nav-text">2.2.1、进入到mq安装目录的sbin目录下，输入如下命令启动管理功能</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
