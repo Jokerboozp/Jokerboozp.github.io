@@ -190,6 +190,102 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/11/26/2019-11-26-Thymeleaf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/11/26/2019-11-26-Thymeleaf/" class="post-title-link" itemprop="url">Springboot-thymeleaf</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-26 00:00:00" itemprop="dateCreated datePublished" datetime="2019-11-26T00:00:00+08:00">2019-11-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 13:47:57" itemprop="dateModified" datetime="2020-06-17T13:47:57+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/Springboot/" itemprop="url" rel="index"><span itemprop="name">Springboot</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="在一个Html页面中引入另一个Html页面，通常来说会利用iFrame框架来进行构建，但是iFrame框架不够灵活而且样式很老旧，而且Thymeleaf对iFrame的支持程度也不高，所以来使用Thymeleaf自带的include方式来引入页面"><a href="#在一个Html页面中引入另一个Html页面，通常来说会利用iFrame框架来进行构建，但是iFrame框架不够灵活而且样式很老旧，而且Thymeleaf对iFrame的支持程度也不高，所以来使用Thymeleaf自带的include方式来引入页面" class="headerlink" title="在一个Html页面中引入另一个Html页面，通常来说会利用iFrame框架来进行构建，但是iFrame框架不够灵活而且样式很老旧，而且Thymeleaf对iFrame的支持程度也不高，所以来使用Thymeleaf自带的include方式来引入页面"></a>在一个Html页面中引入另一个Html页面，通常来说会利用iFrame框架来进行构建，但是iFrame框架不够灵活而且样式很老旧，而且Thymeleaf对iFrame的支持程度也不高，所以来使用Thymeleaf自带的include方式来引入页面</h4><hr>
+<h4 id="先说一下这样做的原因，在构建上一个项目的时候，在每次更改导航栏或者侧边栏的时候，都要同步更改剩余20多个html页面的导航栏或者侧边栏，相当令人头疼。而且在不小心改错的时候，一个一个找也非常令人头疼。所以就需要创建一个header-html，在其他页面直接引入，需要更改的时候直接更改header-html即可。"><a href="#先说一下这样做的原因，在构建上一个项目的时候，在每次更改导航栏或者侧边栏的时候，都要同步更改剩余20多个html页面的导航栏或者侧边栏，相当令人头疼。而且在不小心改错的时候，一个一个找也非常令人头疼。所以就需要创建一个header-html，在其他页面直接引入，需要更改的时候直接更改header-html即可。" class="headerlink" title="先说一下这样做的原因，在构建上一个项目的时候，在每次更改导航栏或者侧边栏的时候，都要同步更改剩余20多个html页面的导航栏或者侧边栏，相当令人头疼。而且在不小心改错的时候，一个一个找也非常令人头疼。所以就需要创建一个header.html，在其他页面直接引入，需要更改的时候直接更改header.html即可。"></a>先说一下这样做的原因，在构建上一个项目的时候，在每次更改导航栏或者侧边栏的时候，都要同步更改剩余20多个html页面的导航栏或者侧边栏，相当令人头疼。而且在不小心改错的时候，一个一个找也非常令人头疼。所以就需要创建一个header.html，在其他页面直接引入，需要更改的时候直接更改header.html即可。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/11/26/2019-11-26-Thymeleaf/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/11/22/2019-11-22-Springboot/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1090,120 +1186,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/22/2019-09-22-Shiro%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
-      <meta itemprop="name" content="慢慢变好的程序张">
-      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="慢慢变好的程序张">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/jokerboozp.github.io/2019/09/22/2019-09-22-Shiro%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Shiro基础0922</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-09-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-22T00:00:00+08:00">2019-09-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-17 13:45:50" itemprop="dateModified" datetime="2020-06-17T13:45:50+08:00">2020-06-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jokerboozp.github.io/categories/Shiro/" itemprop="url" rel="index"><span itemprop="name">Shiro</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>10k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>9 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="实现授权Realm"><a href="#实现授权Realm" class="headerlink" title="实现授权Realm"></a>实现授权Realm</h4><ul>
-<li>实现步骤</li>
-</ul>
-<ol>
-<li>从PrincipalCollection中来获取登陆用户的信息</li>
-<li>利用登录的用户信息来获取当前用户的角色或权限（可能需要查询数据库）</li>
-<li>创建SimpleAuthorizationInfo，并设置其roles属性</li>
-<li>返回SimpleAuthorizationInfo对象</li>
-</ol>
-<ul>
-<li>ShiroRealm.java</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> AuthorizationInfo <span class="title">doGetAuthorizationInfo</span><span class="params">(PrincipalCollection principals)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//1.从PrincipalCollection中来获取登陆用户的信息</span></span><br><span class="line">	Object principal=principals.getPrimaryPrincipal();</span><br><span class="line">	<span class="comment">//2.利用登录的用户信息来获取当前用户的角色或权限（可能需要查询数据库）</span></span><br><span class="line">	Set&lt;String&gt; roles=<span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">	roles.add(<span class="string">"user"</span>);</span><br><span class="line">	<span class="keyword">if</span> (<span class="string">"admin"</span>.equals(principal)) &#123;</span><br><span class="line">		roles.add(<span class="string">"admin"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//3.创建SimpleAuthorizationInfo，并设置其roles属性</span></span><br><span class="line">	SimpleAuthorizationInfo info = <span class="keyword">new</span> SimpleAuthorizationInfo(roles);</span><br><span class="line">	<span class="comment">//4.返回SimpleAuthorizationInfo对象</span></span><br><span class="line">	<span class="keyword">return</span> info;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>实现结果：用户输入的用户
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/jokerboozp.github.io/2019/09/22/2019-09-22-Shiro%E5%9F%BA%E7%A1%80/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/jokerboozp.github.io/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/jokerboozp.github.io/">1</a><span class="space">&hellip;</span><a class="page-number" href="/jokerboozp.github.io/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/jokerboozp.github.io/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/jokerboozp.github.io/page/7/">7</a><a class="extend next" rel="next" href="/jokerboozp.github.io/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/jokerboozp.github.io/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/jokerboozp.github.io/">1</a><span class="space">&hellip;</span><a class="page-number" href="/jokerboozp.github.io/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/jokerboozp.github.io/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/jokerboozp.github.io/page/8/">8</a><a class="extend next" rel="next" href="/jokerboozp.github.io/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1271,18 +1257,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/jokerboozp.github.io/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/jokerboozp.github.io/categories/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -1339,13 +1325,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">447k</span>
+    <span title="站点总字数">452k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:47</span>
+    <span title="站点阅读时长">6:51</span>
 </div>
 
         
