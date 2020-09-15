@@ -190,6 +190,195 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/02/2019-09-02-Java%E5%9F%BA%E7%A1%80-IO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
+      <meta itemprop="name" content="慢慢变好的程序张">
+      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="慢慢变好的程序张">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jokerboozp.github.io/2019/09/02/2019-09-02-Java%E5%9F%BA%E7%A1%80-IO/" class="post-title-link" itemprop="url">Java基础0902</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-02 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-02T00:00:00+08:00">2019-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-17 10:48:42" itemprop="dateModified" datetime="2020-06-17T10:48:42+08:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/jokerboozp.github.io/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><h3 id="输入-输出流的分类"><a href="#输入-输出流的分类" class="headerlink" title="输入/输出流的分类"></a>输入/输出流的分类</h3><ul>
+<li><p>java.io包中定义了多个流类型（类或抽象类）来实现输入/输出功能；可以从不同角度对其进行分类</p>
+<ul>
+<li>按数据流的方向不同可分为输入流和输出流</li>
+<li>按照处理数据单位不同可分为字节流和字符流</li>
+<li>按照功能不同可分为节点流和处理流</li>
+</ul>
+</li>
+<li><p>JDK所提供的所有流类型都位于包java.io内，都分别继承自以下四种抽象流类型</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">名称</th>
+<th align="center">字节流</th>
+<th align="right">字符流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">输入流</td>
+<td align="center">InputStream</td>
+<td align="right">Reader</td>
+</tr>
+<tr>
+<td align="center">输出流</td>
+<td align="center">OutputStream</td>
+<td align="right">Writer</td>
+</tr>
+</tbody></table>
+<h3 id="节点流和处理流"><a href="#节点流和处理流" class="headerlink" title="节点流和处理流"></a>节点流和处理流</h3><ul>
+<li>节点流为可以从一个特定的数据源（节点）读取数据</li>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20112101.png" alt="节点流"></li>
+<li>处理流是“连接”在已存在的流（节点流或处理流）之上，通过对数据的处理为程序提供更为强大的读写能力</li>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20112114.png" alt="处理流"><h4 id="InputStream"><a href="#InputStream" class="headerlink" title="InputStream"></a>InputStream</h4><ul>
+<li>继承自InputStream的流都是用于向程序中输入数据，且数据的单位为字节（8bit）；下图深色为节点流，浅色为处理流<ul>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20113037.png" alt="分类"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="InputStream的基本方法"><a href="#InputStream的基本方法" class="headerlink" title="InputStream的基本方法"></a>InputStream的基本方法</h4><ul>
+<li><code>int read() throws IOException</code>//读取一个字节并以整数的形式返回(0~255)，如果返回-1代表已到输出流的末尾</li>
+<li><code>int read(byte[] buffer) throws IOException</code>//读取一系列字节并存储到一个数组buffer，返回实际读取的字节数，如果读取前已到输入流的末尾返回-1</li>
+<li><code>int read(byte[] buffer,int offset,int length) throws IOException</code>//读取length个字节，并存储到一个字节数组buffer，从length位置开始。返回实际控制的字节数，如果读取前已到输入流的末尾返回-1</li>
+<li><code>void colse() throws IOException</code>//关闭流释放内存资源</li>
+<li><code>long skip(long n) throws IOException</code>//跳过n个字节不读，返回实际跳过的字节数</li>
+</ul>
+<h4 id="OutputStream"><a href="#OutputStream" class="headerlink" title="OutputStream"></a>OutputStream</h4><ul>
+<li>继承自OutputStream的流是用于程序中输入数据，且数据的单位为字节（8bit）；下图深色为节点流，浅色为处理流<ul>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20134236.png" alt="OutputStream"></li>
+</ul>
+</li>
+</ul>
+<h4 id="OutputStream的基本方法"><a href="#OutputStream的基本方法" class="headerlink" title="OutputStream的基本方法"></a>OutputStream的基本方法</h4><ul>
+<li><code>void write(int b) throws IOException</code>//向输出流中写入一个字节数据，该字节数据为参数b的低8位</li>
+<li><code>void write(byte[] b) throws IOException</code>//将一个字节类型数据中的数组中的数据写入输出流</li>
+<li><code>void write(byte[] b,int off,int len) throws IOException</code>//将一个字节类型的数组中的数据从指定位置（off）开始的len个字节写入到输出流中</li>
+<li><code>void colse() throws IOException</code>//关闭流释放内存资源</li>
+<li><code>void flus() throws IOException</code>//将输出流中缓冲的数据全部写出到目的地</li>
+</ul>
+<h4 id="Reader"><a href="#Reader" class="headerlink" title="Reader"></a>Reader</h4><ul>
+<li>继承自Reader的流都是用于向程序中输入数据，且数据的单位为字符（16bit）；下图中深色为节点流，浅色的为处理流。<ul>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20135952.png" alt="reader"></li>
+</ul>
+</li>
+</ul>
+<h4 id="Reader的基本方法"><a href="#Reader的基本方法" class="headerlink" title="Reader的基本方法"></a>Reader的基本方法</h4><ul>
+<li><code>int read() throws IOException</code>//读取一个字符并以整数的形式返回(0~255)，如果返回-1代表已到输出流的末尾</li>
+<li><code>int read(byte[] buffer) throws IOException</code>//读取一系列字符并存储到一个数组buffer，返回实际读取的字节数，如果读取前已到输入流的末尾返回-1</li>
+<li><code>int read(byte[] buffer,int offset,int length) throws IOException</code>//读取length个字符，并存储到一个数组buffer，从length位置开始。返回实际读取的字符数，如果读取前已到输入流的末尾返回-1</li>
+<li><code>void colse() throws IOException</code>//关闭流释放内存资源</li>
+<li><code>long skip(long n) throws IOException</code>//跳过n个字符不读，返回实际跳过的字符数</li>
+</ul>
+<h4 id="Writer"><a href="#Writer" class="headerlink" title="Writer"></a>Writer</h4><ul>
+<li>继承自Writer的流都是用于程序中输出数据，且数据的单位为字符（16bit）；下图深色的为节点流，浅色的为处理流</li>
+<li><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20141104.png" alt="Writer"></li>
+</ul>
+<h4 id="Writer的基本方法"><a href="#Writer的基本方法" class="headerlink" title="Writer的基本方法"></a>Writer的基本方法</h4><ul>
+<li><code>void write(int b) throws IOException</code>//向输出流中写入一个字符数据，该字符数据为参数b的低16位</li>
+<li><code>void write(byte[] b) throws IOException</code>//将一个字符类型数据中的数组中的数据写入输出流</li>
+<li><code>void write(byte[] cbuf,int offset,int length) throws IOException</code>//将一个字符类型的数组中的数据从指定位置（offset）开始的lenth个字符写入到输出流中</li>
+<li><code>void write(String string) throws IOException</code>//将一个字符串中的字符写入到输出流</li>
+<li><code>void colse() throws IOException</code>//关闭流释放内存资源</li>
+<li><code>void flus() throws IOException</code>//将输出流中缓冲的数据全部写出到目的地</li>
+</ul>
+<h4 id="节点流类型"><a href="#节点流类型" class="headerlink" title="节点流类型"></a>节点流类型</h4><p><img data-src="https://github.com/Jokerboozp/Jokerboozp.github.io/raw/master/img/%E6%89%B9%E6%B3%A8%202019-09-02%20142038.png" alt="节点流类型"></p>
+<ul>
+<li>例1：</li>
+<li>文件的读取</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestFileInputStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> b=<span class="number">0</span>;</span><br><span class="line">        FileInputStream in=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            in =<span class="keyword">new</span> FileInputStream(<span class="string">"E:\\test\\Animal.java"</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(FileNotFoundException e)&#123;</span><br><span class="line">            System.out.println(<span class="string">"找不到指定文件"</span>);</span><br><span class="line">            System.exit(-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="keyword">long</span> num=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>((b=in.read())!=-<span class="number">1</span>)&#123;</span><br><span class="line">                System.out.print((<span class="keyword">char</span>)b);</span><br><span class="line">                num++;</span><br><span class="line">            &#125;</span><br><span class="line">            in.close();</span><br><span class="line">            System.out.println();</span><br><span class="line">            System.out.println(<span class="string">"共读取了"</span>+num+<span class="string">"个字节"</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException el)&#123;</span><br><span class="line">            System.out.println(<span class="string">"文件读取错误"</span>);</span><br><span class="line">            System.exit(-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>例2：
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jokerboozp.github.io/2019/09/02/2019-09-02-Java%E5%9F%BA%E7%A1%80-IO/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/09/02/2019-09-02-Oracle-%E7%BC%96%E5%86%99%E9%AB%98%E6%95%88sql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1152,110 +1341,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/08/24/2019-08-24-Java%E5%9F%BA%E7%A1%80-%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
-      <meta itemprop="name" content="慢慢变好的程序张">
-      <meta itemprop="description" content="一个想要成为全栈工程师的运维开发毕业生">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="慢慢变好的程序张">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/jokerboozp.github.io/2019/08/24/2019-08-24-Java%E5%9F%BA%E7%A1%80-%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Java基础0824</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-08-24 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-24T00:00:00+08:00">2019-08-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-17 10:45:45" itemprop="dateModified" datetime="2020-06-17T10:45:45+08:00">2020-06-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jokerboozp.github.io/categories/%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">总结</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><ul>
-<li>类：具有相同特征的同一类事物的抽象</li>
-<li>对象：该类事物的特殊的实例</li>
-<li>类和对象之间的关系：关联、继承、聚合（聚集、组合）、多态、实现</li>
-<li>class：Java中使用class关键字定义一个类</li>
-<li>new</li>
-<li>引用：一大块内存指向一小块内存</li>
-<li>构造方法：当一个类new一个新的对象时调用的方法，这个方法比较特殊，和类同名，没有返回值</li>
-<li>方法重载、构造方法的重载：方法名字相同，参数类型或内容不一样</li>
-<li>this关键字：this指的是当前对象，你现在在调用哪一个方法，这个this指的就是谁。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/jokerboozp.github.io/2019/08/24/2019-08-24-Java%E5%9F%BA%E7%A1%80-%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%80%BB%E7%BB%93/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1327,7 +1412,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/jokerboozp.github.io/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1395,13 +1480,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">464k</span>
+    <span title="站点总字数">465k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:02</span>
+    <span title="站点阅读时长">7:03</span>
 </div>
 
         
