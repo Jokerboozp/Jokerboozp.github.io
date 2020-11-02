@@ -190,7 +190,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/08/24/2019-08-24-Java%E5%9F%BA%E7%A1%80-%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%80%BB%E7%BB%93/">
+    <link itemprop="mainEntityOfPage" href="http://jokerboozp.top/2019/08/24/2019-08-24-Java%E5%9F%BA%E7%A1%80-%E6%95%B0%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/jokerboozp.github.io/images/1.jpg">
@@ -204,7 +204,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/jokerboozp.github.io/2019/08/24/2019-08-24-Java%E5%9F%BA%E7%A1%80-%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Java基础0824</a>
+            <a href="/jokerboozp.github.io/2019/08/24/2019-08-24-Java%E5%9F%BA%E7%A1%80-%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">Java基础0824数组</a>
         </h2>
 
         <div class="post-meta">
@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-17 10:45:45" itemprop="dateModified" datetime="2020-06-17T10:45:45+08:00">2020-06-17</time>
+                <time title="修改时间：2020-06-17 10:46:04" itemprop="dateModified" datetime="2020-06-17T10:46:04+08:00">2020-06-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,7 +229,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/jokerboozp.github.io/categories/%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">总结</span></a>
+                  <a href="/jokerboozp.github.io/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
                 </span>
             </span>
 
@@ -239,14 +239,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>4.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -258,19 +258,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><ul>
-<li>类：具有相同特征的同一类事物的抽象</li>
-<li>对象：该类事物的特殊的实例</li>
-<li>类和对象之间的关系：关联、继承、聚合（聚集、组合）、多态、实现</li>
-<li>class：Java中使用class关键字定义一个类</li>
-<li>new</li>
-<li>引用：一大块内存指向一小块内存</li>
-<li>构造方法：当一个类new一个新的对象时调用的方法，这个方法比较特殊，和类同名，没有返回值</li>
-<li>方法重载、构造方法的重载：方法名字相同，参数类型或内容不一样</li>
-<li>this关键字：this指的是当前对象，你现在在调用哪一个方法，这个this指的就是谁。
+          <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><ul>
+<li><p>数组可以看成是多个相同类型数据的组合，对这些数据的统一管理</p>
+</li>
+<li><p>数组变量属于引用类型，也可以看作是对象，数组中的每个元素相当于该对象的成员变量</p>
+</li>
+<li><p>数组中的元素可以是任何数据类型，包括基本类型和引用类型</p>
+</li>
+<li><p>Java中声明数组不能指定其长度（数组元素中的个数），例如：<code>int[5]</code>是错误的</p>
+</li>
+<li><p>一维数组的声明方式：<code>int[] a</code>或<code>double b[]</code></p>
+</li>
+<li><p>Java中使用new关键字创建数组对象，格式为：数组名=new 数组元素的类型[数组元素的个数]。例如：<code>s= new int[5]</code>。</p>
+</li>
+<li><p>new出来的东西都放在堆内存里面</p>
+</li>
+<li><p>元素为引用数据类型的数组：数组中的每个元素都需要实例化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Date[] days;</span><br><span class="line">        days=<span class="keyword">new</span> Date[<span class="number">3</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</span><br><span class="line">            days[i]=<span class="keyword">new</span> Date(<span class="number">2004.4</span>.i+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Date</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> year;<span class="keyword">int</span> month;<span class="keyword">int</span> day;</span><br><span class="line">    Date(<span class="keyword">int</span> y,<span class="keyword">int</span> m,<span class="keyword">int</span> d)&#123;</span><br><span class="line">        year=y;</span><br><span class="line">        month=m;</span><br><span class="line">        day=d;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>数组初始化</p>
+<ul>
+<li><p>分为静态初始化和动态初始化
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/jokerboozp.github.io/2019/08/24/2019-08-24-Java%E5%9F%BA%E7%A1%80-%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%80%BB%E7%BB%93/#more" rel="contents">
+              <a class="btn" href="/jokerboozp.github.io/2019/08/24/2019-08-24-Java%E5%9F%BA%E7%A1%80-%E6%95%B0%E7%BB%84/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -632,13 +642,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">473k</span>
+    <span title="站点总字数">477k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:10</span>
+    <span title="站点阅读时长">7:14</span>
 </div>
 
         
